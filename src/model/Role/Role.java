@@ -17,4 +17,5 @@ public abstract class Role {
     }
     
     public abstract String getRoleFXMLURL(); 
+    public abstract String getRoleType();
 }
