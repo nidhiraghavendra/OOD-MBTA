@@ -15,5 +15,10 @@ public class MBTAAdminRole extends Role{
     public String getRoleFXMLURL() {
         return "";
     }
+
+    @Override
+    public String getRoleType() {
+        return "mbta";
+    }
     
 }

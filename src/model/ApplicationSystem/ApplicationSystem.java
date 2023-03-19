@@ -5,8 +5,10 @@
  */
 package model.ApplicationSystem;
 
+import java.util.ArrayList;
 import model.Role.MBTAAdminRole;
 import model.Role.SystemAdminRole;
+import model.Routes.Route;
 import model.UserAccount.UserAccount;
 import model.UserAccount.UserAccountDirectory;
 
@@ -19,6 +21,7 @@ public class ApplicationSystem {
     private boolean userLoggedIn;
     private UserAccount loggedInUserAccount = new UserAccount();
     private UserAccountDirectory userdirectory = new UserAccountDirectory();
+    private ArrayList<Route> routes;
     
     public static ApplicationSystem getInstance() {
         if(appSystem == null) {
@@ -34,6 +37,7 @@ public class ApplicationSystem {
         UserAccount mu = userdirectory.createNewUserAccount("mbta", "mbta", "MBTA Manager", "manager.mbta@bostonmbta.org");
         mu.setRole(new MBTAAdminRole());
         
+        this.routes = new ArrayList<Route>();
         userLoggedIn = false;
     }
 
@@ -60,6 +64,18 @@ public class ApplicationSystem {
     public  void setLoggedInUserAccount(UserAccount loggedInUserAccount) {
         this.loggedInUserAccount = loggedInUserAccount;
     }
+
+  
+
+    public ArrayList<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(ArrayList<Route> routes) {
+        this.routes = routes;
+    }
+    
+    
     
     public static void main(String a[]){
         ApplicationSystem app = ApplicationSystem.getInstance();

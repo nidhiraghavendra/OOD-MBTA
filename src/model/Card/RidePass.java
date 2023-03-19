@@ -3,22 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.Role;
+package model.Card;
 
 /**
  *
  * @author Nidhi Raghavendra
  */
-public class CustomerRole extends Role {
-
-    @Override
-    public String getRoleFXMLURL() {
-       return "";
-    }
-
-    @Override
-    public String getRoleType() {
-        return "customer";
-    }
+public class RidePass {
     
 }
