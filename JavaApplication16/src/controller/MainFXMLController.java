@@ -28,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javax.annotation.processing.Generated;
 import model.ApplicationSystem.ApplicationSystem;
+import model.UserAccount.UserAccount;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 
@@ -58,6 +59,12 @@ public class MainFXMLController implements Initializable {
     @FXML 
     private BorderPane borderpane;
     
+    @FXML
+    private ImageView imageview;
+    
+    @FXML
+    private ImageView imageviewride;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -67,36 +74,25 @@ public class MainFXMLController implements Initializable {
         if(app.isUserLoggedIn()) {
             System.out.println("Present -- ");
             // use the user account object to show the welcome message
-            welcomeUserField.setText("Hello "+ app.getLoggedInUserAccount().getName());
+            UserAccount useraccount = app.getLoggedInUserAccount();
+            
+            welcomeUserField.setText(app.getLoggedInUserAccount().getName());
             accountBtn.setVisible(false);
             logoutBtn.setVisible(true);
+            
+            // SHOW QR CODE
+            displayCard(useraccount);
+            borderpane.getRight().setVisible(true);
+        
+        
         } else {
             welcomeUserField.setText("");
             accountBtn.setVisible(true);
             logoutBtn.setVisible(false);
+            borderpane.getRight().setVisible(false);
         }
-         ByteArrayOutputStream out = QRCode.from("LT Jerry0022").to(ImageType.PNG).withSize(200, 200).stream();
-        ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
-
-        // SHOW QR CODE
-        
-        Image image = new Image(in);
-        ImageView view = new ImageView(image);
-        view.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");
-        
-        Pane pane = new Pane();
-        VBox vb = new VBox();
         
         
-        Button b = new Button();
-        b.setText("Sample");
-        vb.setSpacing(10);
-        
-        vb.getChildren().add(b);
-        vb.getChildren().add(view);
-        pane.getChildren().add(vb);
-        
-        borderpane.setCenter(pane);
     }    
 
     @FXML
@@ -142,5 +138,15 @@ public class MainFXMLController implements Initializable {
     @FXML
     private void charlieButtonClicked(ActionEvent event) {
         
+    }
+    
+    private void displayCard(UserAccount useraccount) {
+        Image image = new Image(useraccount.getCharlieCard().getQRCodePath());
+        imageview.setImage(image);
+        imageview.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");
+       
+        Image image2 = new Image(useraccount.getRidePass().getQRCodePath());
+        imageviewride.setImage(image2);
+        imageviewride.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");
     }
 }

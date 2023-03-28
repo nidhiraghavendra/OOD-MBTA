@@ -6,6 +6,8 @@
 package controller;
 
 import java.awt.event.MouseEvent;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,11 +20,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.ApplicationSystem.ApplicationSystem;
 import model.Role.CustomerRole;
 import model.UserAccount.UserAccount;
 import model.UserAccount.UserAccountDirectory;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 
 /**
  * FXML Controller class
@@ -58,7 +63,8 @@ public class LoginFXMLController implements Initializable {
 
     @FXML
     private Button buttonLogin;
-
+    
+    
     @FXML
     private Button buttonSignUp;
 
@@ -69,7 +75,8 @@ public class LoginFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        //app = ApplicationSystem.getInstance();
+        
+        
     }
 
     @FXML
@@ -97,6 +104,15 @@ public class LoginFXMLController implements Initializable {
 
                 UserAccount useracc = app.getUserdirectory().createNewUserAccount(fieldNewPassword.getText(), fieldNewPassword.getText(), fieldName.getText(), fieldEmail.getText());
                 useracc.setRole(new CustomerRole());
+                String QRCodeText = useracc.getUsername() + useracc.getUseraccountId() + "MBTA charlie card";
+                String QRCodeTextRide = useracc.getUsername() + useracc.getUseraccountId() + "MBTA ride pass";
+//                Generate a new Charlie card and Ride Pass for the user
+                ByteArrayInputStream in = getQRCode(QRCodeText);
+                useracc.getCharlieCard().setQRCodePath(in);
+                
+                ByteArrayInputStream inRide = getQRCode(QRCodeTextRide);
+                useracc.getRidePass().setQRCodePath(inRide);
+                
                 buttonSignUp.setText("Registered");
 
             }
@@ -123,4 +139,10 @@ public class LoginFXMLController implements Initializable {
 
     }
 
+    private ByteArrayInputStream getQRCode(String QRCodeText) {
+        ByteArrayOutputStream out = QRCode.from(QRCodeText).to(ImageType.PNG).withSize(100, 100).stream();
+        ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+        
+        return in;
+    }
 }

@@ -6,6 +6,8 @@
 package model.UserAccount;
 
 import model.ApplicationSystem.UserProfile.Profile;
+import model.Card.CharlieCard;
+import model.Card.RidePass;
 import model.Role.Role;
 
 /**
@@ -17,12 +19,16 @@ public class UserAccount extends Profile {
     private String username;
     private String password;
     private Role role;
-    private final String useraccountId;
+    private String useraccountId;
+    private CharlieCard charlieCard;
+    private RidePass ridePass;
     
     public UserAccount() {
       super();
       this.counter++;
       this.useraccountId = "account"+this.counter;
+      this.charlieCard = new CharlieCard();
+      this.ridePass = new RidePass();
     }
 
     public String getUsername() {
@@ -48,6 +54,32 @@ public class UserAccount extends Profile {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public CharlieCard getCharlieCard() {
+        return charlieCard;
+    }
+
+    public void setCharlieCard(CharlieCard charlieCard) {
+        this.charlieCard = charlieCard;
+    }
+
+    public RidePass getRidePass() {
+        return ridePass;
+    }
+
+    public void setRidePass(RidePass ridePass) {
+        this.ridePass = ridePass;
+    }
+
+    
+    public String getUseraccountId() {
+        return useraccountId;
+    }
+
+    public void setUseraccountId(String useraccountId) {
+        this.useraccountId = useraccountId;
+    }
+    
     
     
 }

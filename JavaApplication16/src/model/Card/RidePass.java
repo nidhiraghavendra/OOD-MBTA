@@ -9,6 +9,22 @@ package model.Card;
  *
  * @author Nidhi Raghavendra
  */
-public class RidePass {
+public class RidePass extends Card{
+
+    public RidePass() {
+        
+    }
+    
+    @Override
+    public void calculateCardBalance() {
+    }
+
+    @Override
+    public void setLowerLimit() {
+    }
+
+    @Override
+    public void rechargeCard() {
+    }
     
 }
