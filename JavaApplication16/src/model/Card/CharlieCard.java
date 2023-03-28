@@ -9,6 +9,23 @@ package model.Card;
  *
  * @author Nidhi Raghavendra
  */
-public class CharlieCard {
-    
+public class CharlieCard extends Card {
+    public CharlieCard() {
+        
+    }
+
+    @Override
+    public void calculateCardBalance() {
+        
+    }
+
+    @Override
+    public void setLowerLimit() {
+        
+    }
+
+    @Override
+    public void rechargeCard() {
+        
+    }
 }

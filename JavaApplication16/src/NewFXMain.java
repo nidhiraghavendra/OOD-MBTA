@@ -33,7 +33,7 @@ public class NewFXMain extends Application {
             FXMLLoader loader = new FXMLLoader();
             System.out.println(3);
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/MainFXML.fxml"));
-            Scene scene = new Scene(root, 900, 900);
+            Scene scene = new Scene(root, 500, 500);
 
             primaryStage.setTitle("MBTA Portal");
             primaryStage.setScene(scene);
