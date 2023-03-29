@@ -6,6 +6,7 @@
 package model.Customer;
 
 import java.util.ArrayList;
+import model.UserAccount.UserAccount;
 
 /**
  *
@@ -16,5 +17,12 @@ public class CustomerDirectory {
     
     public CustomerDirectory() {
         this.customerlist = new ArrayList<Customer>();
+    }
+    
+    public Customer createCustomer(UserAccount useraccount) {
+        Customer customer = new Customer();
+        customer.setUseraccount(useraccount);
+        this.customerlist.add(customer);
+        return customer;
     }
 }

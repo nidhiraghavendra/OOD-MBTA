@@ -53,6 +53,7 @@ public class UserAccount extends Profile {
 
     public void setRole(Role role) {
         this.role = role;
+        this.useraccountId += role.getRoleType();
     }
 
     public CharlieCard getCharlieCard() {
