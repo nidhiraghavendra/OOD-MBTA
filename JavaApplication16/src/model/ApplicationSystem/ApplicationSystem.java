@@ -7,6 +7,7 @@ package model.ApplicationSystem;
 
 import java.util.ArrayList;
 import model.Customer.CustomerDirectory;
+import model.RideAgent.RideAgenDirectory;
 import model.Role.MBTAAdminRole;
 import model.Role.SystemAdminRole;
 import model.Routes.Location;
@@ -26,6 +27,7 @@ public class ApplicationSystem {
     private ArrayList<Route> routes;
     private ArrayList<Location> locations;
     private CustomerDirectory customerDirectory;
+    private RideAgenDirectory rideAgentDirectory;
     
     public static ApplicationSystem getInstance() {
         if(appSystem == null) {
@@ -44,6 +46,7 @@ public class ApplicationSystem {
         this.routes = new ArrayList<Route>();
         this.locations = new ArrayList<Location>();
         this.customerDirectory = new CustomerDirectory();
+        this.rideAgentDirectory = new RideAgenDirectory();
         userLoggedIn = false;
     }
 
@@ -79,6 +82,30 @@ public class ApplicationSystem {
 
     public void setRoutes(ArrayList<Route> routes) {
         this.routes = routes;
+    }
+
+    public ArrayList<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(ArrayList<Location> locations) {
+        this.locations = locations;
+    }
+
+    public CustomerDirectory getCustomerDirectory() {
+        return customerDirectory;
+    }
+
+    public void setCustomerDirectory(CustomerDirectory customerDirectory) {
+        this.customerDirectory = customerDirectory;
+    }
+
+    public RideAgenDirectory getRideAgentDirectory() {
+        return rideAgentDirectory;
+    }
+
+    public void setRideAgentDirectory(RideAgenDirectory rideAgentDirectory) {
+        this.rideAgentDirectory = rideAgentDirectory;
     }
     
     

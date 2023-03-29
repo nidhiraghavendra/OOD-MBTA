@@ -6,6 +6,7 @@
 package model.Commute;
 
 import java.util.ArrayList;
+import model.RideAgent.RideAgent;
 import model.Routes.Location;
 import model.Routes.Route;
 
@@ -16,10 +17,10 @@ import model.Routes.Route;
 public class Ride extends Commute {
     private static int capacity;
     private boolean isBooked;
-    private String driverName;
+    private RideAgent agent;
     
     public Ride() {
-        
+        this.agent = new RideAgent();
     }
     
     public ArrayList<Route> getCommuteRoutes() {
