@@ -17,6 +17,14 @@ public class RideAgenDirectory {
     public RideAgenDirectory() {
         this.agentlist = new ArrayList<RideAgent>();
     }
+
+    public ArrayList<RideAgent> getAgentlist() {
+        return agentlist;
+    }
+
+    public void setAgentlist(ArrayList<RideAgent> agentlist) {
+        this.agentlist = agentlist;
+    }
     
     public RideAgent createRideAgent() {
         RideAgent rideAgent = new RideAgent();

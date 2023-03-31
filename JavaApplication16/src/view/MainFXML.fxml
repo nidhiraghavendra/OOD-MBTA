@@ -61,11 +61,12 @@
                   <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="RIDE" textFill="#fcf9f9" />
                   <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="CHARLIE CARD" textFill="#fcf9f9" />
                   <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="FAQ" textFill="#fcf9f9" />
+                  <Button fx:id="userBtn" layoutX="10.0" layoutY="210.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#userBtnClicked" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="ACCOUNTS" textFill="#fcf9f9" />
                </children>
             </VBox>
          </left>
          <right>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f3f4; -fx-padding: 5;" BorderPane.alignment="CENTER">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1fffa" height="125.0" layoutY="80.0" stroke="#fffefe" strokeType="INSIDE" width="200.0" />
                   <Label fx:id="welcomeUserField" layoutX="9.0" layoutY="93.0" prefHeight="17.0" prefWidth="65.0" text="Label" />
@@ -73,7 +74,7 @@
                   <Label layoutX="14.0" layoutY="31.0" prefHeight="27.0" prefWidth="180.0" text="You can find your E-Cards below" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#961d8a" height="125.0" layoutY="234.0" stroke="#fffefe" strokeType="INSIDE" width="200.0" />
                   <ImageView fx:id="imageviewride" fitHeight="100.0" fitWidth="100.0" layoutX="90.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="welcomeUserField" layoutX="14.0" layoutY="250.0" prefHeight="17.0" prefWidth="61.0" text="Label" />
+                  <Label fx:id="welcomeUserField" layoutX="14.0" layoutY="250.0" prefHeight="17.0" prefWidth="61.0" text="Label" textFill="#fffbfb" />
                </children>
             </Pane>
          </right></BorderPane>
