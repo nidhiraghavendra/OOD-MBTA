@@ -19,6 +19,7 @@ public class UserAccount extends Profile {
     private String username;
     private String password;
     private Role role;
+    private String roleType;
     private String useraccountId;
     private CharlieCard charlieCard;
     private RidePass ridePass;
@@ -53,6 +54,7 @@ public class UserAccount extends Profile {
 
     public void setRole(Role role) {
         this.role = role;
+        this.roleType = role.getRoleType();
         this.useraccountId += role.getRoleType();
     }
 
@@ -79,6 +81,14 @@ public class UserAccount extends Profile {
 
     public void setUseraccountId(String useraccountId) {
         this.useraccountId = useraccountId;
+    }
+
+    public String getRoleType() {
+        return this.roleType;
+    }
+
+    public void setRoleType(String roleType) {
+        this.roleType = roleType;
     }
     
     

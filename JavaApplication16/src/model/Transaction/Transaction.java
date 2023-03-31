@@ -17,6 +17,7 @@ public class Transaction {
     private double amount;
     private String status;
     private Date transactionDate;
+    private String travelType;
     
     public Transaction() {
         transactionId++;

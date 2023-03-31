@@ -18,6 +18,15 @@ public class CustomerDirectory {
     public CustomerDirectory() {
         this.customerlist = new ArrayList<Customer>();
     }
+
+    public ArrayList<Customer> getCustomerlist() {
+        System.out.println("size custoemrs:: " + this.customerlist.size());
+        return this.customerlist;
+    }
+
+    public void setCustomerlist(ArrayList<Customer> customerlist) {
+        this.customerlist = customerlist;
+    }
     
     public Customer createCustomer(UserAccount useraccount) {
         Customer customer = new Customer();
