@@ -5,6 +5,7 @@
  */
 package model.RideAgent;
 
+import java.time.LocalDate;
 import java.util.Date;
 import model.ApplicationSystem.UserProfile.Profile;
 import model.UserAccount.UserAccount;
@@ -17,7 +18,7 @@ public class RideAgent {
     UserAccount useraccount;
     private boolean available;
     private String license;
-    private Date joinDate;
+    private LocalDate joinDate;
     Vehicle vehicle;
     
     public RideAgent() {
@@ -50,11 +51,11 @@ public class RideAgent {
         this.license = license;
     }
 
-    public Date getJoinDate() {
+    public LocalDate getJoinDate() {
         return joinDate;
     }
 
-    public void setJoinDate(Date joinDate) {
+    public void setJoinDate(LocalDate joinDate) {
         this.joinDate = joinDate;
     }
 

@@ -21,6 +21,7 @@ public class Customer {
     ArrayList<RideBooking> bookings;
     
     public Customer() {
+        this.useraccount = new UserAccount();
         this.transactions = new ArrayList<Transaction>();
         this.bookings = new ArrayList<RideBooking>();
     }
