@@ -12,6 +12,7 @@ package model.Routes;
 public class Location {
     private static int locationID = 0;
     private String name;
+    private int zipcode;
         
     public Location() {
         locationID++;
@@ -24,6 +25,24 @@ public class Location {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public static int getLocationID() {
+        return locationID;
+    }
+
+    public static void setLocationID(int locationID) {
+        Location.locationID = locationID;
+    }
+
+    public int getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
+    }
+        
+        
     
 	@Override
 	public String toString() {

@@ -23,7 +23,7 @@ public class Validation {
     Pattern p;
 
     public boolean validateName(String name) {
-        String nameValidate = "[A-Za-z]";
+        String nameValidate = "[A-Za-z]{10}";
         p = Pattern.compile(nameValidate);
 
         if (!p.matcher(name).matches()) {

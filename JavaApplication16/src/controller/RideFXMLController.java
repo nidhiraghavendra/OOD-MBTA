@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -47,6 +50,11 @@ public class RideFXMLController implements Initializable{
 		// TODO Auto-generated method stub
 		this.app = ApplicationSystem.getInstance();
 		this.app.populateRides();
+            try {
+                this.app.populateLocations();
+            } catch (IOException ex) {
+                Logger.getLogger(RideFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 //        ride = this.app.getUserdirectory().getUseraccountlist();
 //        System.out.println("In User management controller :: " + app.getCustomerDirectory().getCustomerlist().size());
 		populateTable();

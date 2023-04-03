@@ -5,6 +5,10 @@
  */
 package model.ApplicationSystem;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import model.Commute.CommuteDirectory;
@@ -24,6 +28,7 @@ import model.UserAccount.UserAccountDirectory;
  * @author Nidhi Raghavendra
  */
 public class ApplicationSystem {
+
     public static ApplicationSystem appSystem;
     private boolean userLoggedIn;
     private UserAccount loggedInUserAccount = new UserAccount();
@@ -33,21 +38,21 @@ public class ApplicationSystem {
     private CustomerDirectory customerDirectory;
     private RideAgenDirectory rideAgentDirectory;
     private CommuteDirectory commuteDirectory;
-    
+
     public static ApplicationSystem getInstance() {
-        if(appSystem == null) {
+        if (appSystem == null) {
             appSystem = new ApplicationSystem();
             return appSystem;
         }
         return appSystem;
     }
-    
+
     public ApplicationSystem() {
         UserAccount u = userdirectory.createNewUserAccount("admin", "admin", "Administrator", "raghunidhi22@gmail.com");
         u.setRole(new SystemAdminRole());
         UserAccount mu = userdirectory.createNewUserAccount("mbta", "mbta", "MBTA Manager", "manager.mbta@bostonmbta.org");
         mu.setRole(new MBTAAdminRole());
-        
+
         this.routes = new ArrayList<Route>();
         this.locations = new ArrayList<Location>();
         this.customerDirectory = new CustomerDirectory();
@@ -72,15 +77,13 @@ public class ApplicationSystem {
         this.userLoggedIn = userLoggedIn;
     }
 
-    public  UserAccount getLoggedInUserAccount() {
+    public UserAccount getLoggedInUserAccount() {
         return this.loggedInUserAccount;
     }
 
-    public  void setLoggedInUserAccount(UserAccount loggedInUserAccount) {
+    public void setLoggedInUserAccount(UserAccount loggedInUserAccount) {
         this.loggedInUserAccount = loggedInUserAccount;
     }
-
-  
 
     public ArrayList<Route> getRoutes() {
         return routes;
@@ -113,37 +116,58 @@ public class ApplicationSystem {
     public void setRideAgentDirectory(RideAgenDirectory rideAgentDirectory) {
         this.rideAgentDirectory = rideAgentDirectory;
     }
-    
-    
+
     public CommuteDirectory getCommuteDirectory() {
-		return commuteDirectory;
-	}
+        return commuteDirectory;
+    }
 
-	public void setCommuteDirectory(CommuteDirectory commuteDirectory) {
-		this.commuteDirectory = commuteDirectory;
-	}
+    public void setCommuteDirectory(CommuteDirectory commuteDirectory) {
+        this.commuteDirectory = commuteDirectory;
+    }
+    
+    public Location findALocationByName(String name) {
+        for(Location l: this.locations) {
+            if(l.getName().equals(name)) {
+                return l;
+            }
+        }
+        
+        return null;
+    }
+    
+    public void populateRides() {
+        System.out.println("Inside populate rides ::::::::::::::::::::::" + this.rideAgentDirectory.getAgentlist().size());
 
-	public void populateRides() {
-		System.out.println("Inside populate rides ::::::::::::::::::::::" + this.rideAgentDirectory.getAgentlist().size());
-		
-		// the rides in the system are vehicles pre-defined with a set of routes that they service. Each ride also has an agent
-		// #of rides = # of ride agents in the system
-		// if a ride is booked, we will mark ride agent as unavailable until he finishes ride.
-		for(RideAgent agent: this.rideAgentDirectory.getAgentlist()) {
-			Ride ride = this.commuteDirectory.addRide();
-			ride.setName("Carpool" + ride.getID());
-			ride.setAgent(agent);
-			ride.getCommuteRoutes();
-		}
-	}
-	
-	public static void main(String a[]){
+        // the rides in the system are vehicles pre-defined with a set of routes that they service. Each ride also has an agent
+        // #of rides = # of ride agents in the system
+        // if a ride is booked, we will mark ride agent as unavailable until he finishes ride.
+        for (RideAgent agent : this.rideAgentDirectory.getAgentlist()) {
+            Ride ride = this.commuteDirectory.addRide();
+            ride.setName("Carpool" + ride.getID());
+            ride.setAgent(agent);
+            ride.getCommuteRoutes();
+        }
+    }
+
+    public void populateLocations() throws FileNotFoundException, IOException {
+        String line = "";
+        BufferedReader reader = new BufferedReader(new FileReader("locationsData"));
+
+        while ((line = reader.readLine()) != null) {
+            Location location = new Location();
+            location.setName(line);
+            location.setZipcode(21 + location.getLocationID());
+
+            this.locations.add(location);
+        }
+    }
+
+    public static void main(String a[]) {
         ApplicationSystem app = ApplicationSystem.getInstance();
         System.out.println(app.getUserdirectory());
-        if(app.getUserdirectory().checkIfExists("admin", "admin")) {
+        if (app.getUserdirectory().checkIfExists("admin", "admin")) {
             System.out.print("kjfk");
         }
     }
-    
-    
+
 }
