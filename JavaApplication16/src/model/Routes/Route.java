@@ -20,6 +20,9 @@ public class Route {
     
     public Route() {
         this.ID++;
+        this.source = new Location();
+        this.destination = new Location();
+        this.currentLocation = new Location();
     }
 
     public static int getID() {

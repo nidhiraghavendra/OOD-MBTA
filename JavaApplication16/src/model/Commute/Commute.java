@@ -6,6 +6,9 @@
 package model.Commute;
 
 import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Routes.Route;
 
 /**
@@ -22,11 +25,11 @@ public class Commute {
     private String VIN;
     private double price;
     
-    public ArrayList<Route> commuteRoutes;
+    public ObservableList<Route> commuteRoutes;
     
     public Commute() {
         this.ID = counter++;
-        this.commuteRoutes = new ArrayList<Route>();
+        this.commuteRoutes = FXCollections.observableArrayList();
     }
 
     public int getID() {
@@ -77,11 +80,11 @@ public class Commute {
         this.VIN = VIN;
     }
 
-    public ArrayList<Route> getCommuteRoutes() {
+    public ObservableList<Route> getCommuteRoutes() {
         return commuteRoutes;
     }
 
-    public void setCommuteRoutes(ArrayList<Route> commuteRoutes) {
+    public void setCommuteRoutes(ObservableList<Route> commuteRoutes) {
         this.commuteRoutes = commuteRoutes;
     }
     

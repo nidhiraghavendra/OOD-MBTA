@@ -6,6 +6,8 @@
 package model.Commute;
 
 import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
 import model.Routes.Route;
 
 /**
@@ -14,7 +16,7 @@ import model.Routes.Route;
  */
 public class Bus extends Commute {
     
-    public ArrayList<Route> getCommuteRoutes() {
+    public ObservableList<Route> getCommuteRoutes() {
         // logic to show the current active route and the next route
         System.out.print("");
         return null;
