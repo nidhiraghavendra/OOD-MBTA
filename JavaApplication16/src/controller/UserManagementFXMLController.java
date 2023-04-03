@@ -16,7 +16,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -26,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import model.ApplicationSystem.ApplicationSystem;
+import model.ApplicationSystem.Validation;
 import model.Customer.Customer;
 import model.RideAgent.RideAgent;
 import model.UserAccount.UserAccount;
@@ -42,7 +46,8 @@ public class UserManagementFXMLController implements Initializable {
      */
     ApplicationSystem app;
     ObservableList<UserAccount> users;
-
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    ButtonType buttontype = new ButtonType("OK", ButtonData.OK_DONE);
     @FXML
     Pane anchorPane;
 
@@ -64,7 +69,7 @@ public class UserManagementFXMLController implements Initializable {
     TableColumn<UserAccount, String> colId;
     @FXML
     TableColumn<UserAccount, String> colIdR;
-    
+
     @FXML
     TableColumn<UserAccount, String> colEmail;
     @FXML
@@ -78,7 +83,7 @@ public class UserManagementFXMLController implements Initializable {
     TableColumn<UserAccount, String> colUsernameC;
     @FXML
     TableColumn<UserAccount, String> colUsernameR;
-    
+
     @FXML
     TableColumn<UserAccount, String> colRole;
 
@@ -185,6 +190,14 @@ public class UserManagementFXMLController implements Initializable {
         String b = brand.getText();
         LocalDate date = picker.getValue();
 
+        Validation validate = new Validation();
+
+        if (!validate.validateEmail(email)) {
+            displayAlert("Invalid email address");
+        }       
+        if(!validate.validateName(name)) {
+            displayAlert("Invalid name");
+        }
         RideAgent ride = app.getRideAgentDirectory().createRideAgent();
         ride.getUseraccount().setEmail(email);
         ride.getUseraccount().setName(name);
@@ -192,7 +205,15 @@ public class UserManagementFXMLController implements Initializable {
         ride.getUseraccount().setUsername(name);
         ride.setLicense(l);
         ride.getVehicle().setCarBrand(b);
-        
+
         app.getUserdirectory().getUseraccountlist().add(ride.getUseraccount());
+    }
+
+    private void displayAlert(String message) {
+        alert.setTitle("");
+        alert.setContentText(message);
+        alert.getDialogPane().getButtonTypes().add(buttontype);
+        
+        alert.showAndWait();
     }
 }
