@@ -48,18 +48,21 @@ public class CommuteDirectory {
     
     public Bus addBus() {
         Bus bus = new Bus();
+        bus.setType("bus");
         this.buses.add(bus);
         return bus;
     }
     
     public Train addTrain() {
         Train train = new Train();
+        train.setType("train");
         this.trains.add(train);
         return train;
     }
     
     public Ride addRide() {
         Ride ride = new Ride();
+        ride.setType("ride");
         this.rides.add(ride);
         return ride;
     }

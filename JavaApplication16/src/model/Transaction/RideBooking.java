@@ -7,6 +7,7 @@ package model.Transaction;
 
 import model.Commute.Ride;
 import model.Routes.Location;
+import model.Routes.Route;
 
 /**
  *
@@ -15,10 +16,11 @@ import model.Routes.Location;
 public class RideBooking {
     private static int bookingId = 0;
     private Ride ride;
-    private Location source;
-    private Location destination;
+    private Route rideRoute;
     private double rideTotal;
     private double duration;
+    private String status;
+    private Transaction transaction;
     
     public RideBooking() {
         bookingId++;
