@@ -192,10 +192,10 @@ public class UserManagementFXMLController implements Initializable {
 
         Validation validate = new Validation();
 
-        if (!validate.validateEmail(email)) {
+        if (validate.validateEmail(email)) {
             displayAlert("Invalid email address");
         }       
-        if(!validate.validateName(name)) {
+        if(validate.validateName(name)) {
             displayAlert("Invalid name");
         }
         RideAgent ride = app.getRideAgentDirectory().createRideAgent();

@@ -17,6 +17,7 @@ public class Route {
     private double distance;
     private double duration;
     private Location currentLocation;
+    private Double price;
     
     public Route() {
         this.ID++;
@@ -73,6 +74,14 @@ public class Route {
 
     public void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price += distance*1.2;
     }
     
     
