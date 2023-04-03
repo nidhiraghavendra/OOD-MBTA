@@ -46,19 +46,19 @@ public class CommuteDirectory {
         this.rides = rides;
     }
     
-    private Bus addBus() {
+    public Bus addBus() {
         Bus bus = new Bus();
         this.buses.add(bus);
         return bus;
     }
     
-    private Train addTrain() {
+    public Train addTrain() {
         Train train = new Train();
         this.trains.add(train);
         return train;
     }
     
-    private Ride addRide() {
+    public Ride addRide() {
         Ride ride = new Ride();
         this.rides.add(ride);
         return ride;

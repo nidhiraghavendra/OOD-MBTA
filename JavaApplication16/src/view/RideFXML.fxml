@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RideFXMLController">
+   <children>
+      <TableView fx:id="rideTableView" minWidth="-Infinity" prefHeight="249.0" prefWidth="603.0">
+        <columns>
+          <TableColumn fx:id="colSource" minWidth="120.0" prefWidth="75.0" text="Source" />
+          <TableColumn fx:id="colDestination" minWidth="120.0" prefWidth="75.0" text="Destination" />
+            <TableColumn fx:id="colDistance" minWidth="120.0" prefWidth="75.0" text="Distance" />
+            <TableColumn fx:id="colDuration" minWidth="120.0" prefWidth="75.0" text="Duration" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

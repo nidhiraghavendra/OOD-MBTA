@@ -6,8 +6,12 @@
 package model.ApplicationSystem;
 
 import java.util.ArrayList;
+
+import model.Commute.CommuteDirectory;
+import model.Commute.Ride;
 import model.Customer.CustomerDirectory;
 import model.RideAgent.RideAgenDirectory;
+import model.RideAgent.RideAgent;
 import model.Role.MBTAAdminRole;
 import model.Role.SystemAdminRole;
 import model.Routes.Location;
@@ -28,6 +32,7 @@ public class ApplicationSystem {
     private ArrayList<Location> locations;
     private CustomerDirectory customerDirectory;
     private RideAgenDirectory rideAgentDirectory;
+    private CommuteDirectory commuteDirectory;
     
     public static ApplicationSystem getInstance() {
         if(appSystem == null) {
@@ -47,6 +52,7 @@ public class ApplicationSystem {
         this.locations = new ArrayList<Location>();
         this.customerDirectory = new CustomerDirectory();
         this.rideAgentDirectory = new RideAgenDirectory();
+        this.commuteDirectory = new CommuteDirectory();
         userLoggedIn = false;
     }
 
@@ -109,8 +115,29 @@ public class ApplicationSystem {
     }
     
     
-    
-    public static void main(String a[]){
+    public CommuteDirectory getCommuteDirectory() {
+		return commuteDirectory;
+	}
+
+	public void setCommuteDirectory(CommuteDirectory commuteDirectory) {
+		this.commuteDirectory = commuteDirectory;
+	}
+
+	public void populateRides() {
+		System.out.println("Inside populate rides ::::::::::::::::::::::" + this.rideAgentDirectory.getAgentlist().size());
+		
+		// the rides in the system are vehicles pre-defined with a set of routes that they service. Each ride also has an agent
+		// #of rides = # of ride agents in the system
+		// if a ride is booked, we will mark ride agent as unavailable until he finishes ride.
+		for(RideAgent agent: this.rideAgentDirectory.getAgentlist()) {
+			Ride ride = this.commuteDirectory.addRide();
+			ride.setName("Carpool" + ride.getID());
+			ride.setAgent(agent);
+			ride.getCommuteRoutes();
+		}
+	}
+	
+	public static void main(String a[]){
         ApplicationSystem app = ApplicationSystem.getInstance();
         System.out.println(app.getUserdirectory());
         if(app.getUserdirectory().checkIfExists("admin", "admin")) {

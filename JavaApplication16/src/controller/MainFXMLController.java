@@ -68,6 +68,9 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private Button userBtn;
+    
+    @FXML
+    private Button ride;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -140,8 +143,9 @@ public class MainFXMLController implements Initializable {
     }
 
     @FXML
-    private void rideButtonClicked(ActionEvent event) {
-
+    private void rideButtonClicked(ActionEvent event) throws IOException {
+    	 Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/RideFXML.fxml"));
+         borderpane.setCenter(loadPane);
     }
 
     @FXML
