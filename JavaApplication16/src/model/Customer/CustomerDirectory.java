@@ -28,6 +28,15 @@ public class CustomerDirectory {
         this.customerlist = customerlist;
     }
     
+    public Customer findACustomer(UserAccount user) {
+        for(Customer c: this.customerlist) {
+            if(c.getUseraccount().equals(user)) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
     public Customer createCustomer(UserAccount useraccount) {
         Customer customer = new Customer();
         customer.setUseraccount(useraccount);

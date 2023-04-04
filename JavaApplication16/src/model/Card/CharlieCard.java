@@ -10,22 +10,18 @@ package model.Card;
  * @author Nidhi Raghavendra
  */
 public class CharlieCard extends Card {
-    public CharlieCard() {
-        
-    }
 
-    @Override
-    public void calculateCardBalance() {
-        
+    public CharlieCard() {
+
     }
 
     @Override
     public void setLowerLimit() {
-        
+        super.passFee = -10.0;
     }
 
     @Override
-    public void rechargeCard() {
-        
+    public void setPassFee() {
+        super.passFee = 2.40;
     }
 }

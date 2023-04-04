@@ -7,7 +7,9 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import model.ApplicationSystem.ApplicationSystem;
 
 /**
@@ -22,6 +24,18 @@ public class UserProfileFXMLController implements Initializable {
      */
     
     ApplicationSystem app;
+    
+    @FXML
+    private Label username;
+    
+    @FXML
+    private Label accountnumber;
+    
+    @FXML
+    private Label charlieCardBalance;
+    
+    @FXML
+    private Label ridePassBalance;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

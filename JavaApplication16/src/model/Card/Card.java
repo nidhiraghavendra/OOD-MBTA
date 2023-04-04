@@ -12,15 +12,18 @@ import java.io.ByteArrayInputStream;
  * @author Nidhi Raghavendra
  */
 public abstract class Card {
+
     private String cardID;
     private static int counter = 0;
     private String cardType;
     private ByteArrayInputStream QRCodePath;
-    private static double cardBalance;
+    private double cardBalance;
     private String cardStatus;
-    
+    public static double lowerLimit = 0.0;
+    public static double passFee = 0.0;
+
     public Card() {
-        this.cardID = this.cardType+counter++;
+        this.cardID = this.cardType + counter++;
     }
 
     public String getCardID() {
@@ -47,12 +50,12 @@ public abstract class Card {
         this.QRCodePath = QRCodePath;
     }
 
-    public static double getCardBalance() {
+    public double getCardBalance() {
         return cardBalance;
     }
 
-    public static void setCardBalance(double cardBalance) {
-        Card.cardBalance = cardBalance;
+    public void setCardBalance(double cardBalance) {
+        this.cardBalance = cardBalance;
     }
 
     public String getCardStatus() {
@@ -62,9 +65,41 @@ public abstract class Card {
     public void setCardStatus(String cardStatus) {
         this.cardStatus = cardStatus;
     }
-    
-    
-    public abstract void calculateCardBalance();
+
+    public void calculateCardBalance() {
+        if (this.getCardBalance() <= passFee) {
+            this.setCardBalance(passFee);
+            this.setCardStatus("Deactivated");
+        } else {
+            double balance = this.getCardBalance();
+            if (balance > lowerLimit && balance <= 0) {
+                balance -= passFee;
+                this.setCardBalance(balance);
+                this.setCardStatus("Insufficient balance");
+            } else {
+                balance -= passFee;
+                this.setCardBalance(balance);
+                this.setCardStatus("Active");
+            }
+        }
+    }
+
+    ;
     public abstract void setLowerLimit();
-    public abstract void rechargeCard();
+
+    public abstract void setPassFee();
+
+    public void rechargeCard(double amount) {
+        double balance = this.getCardBalance();
+        this.setCardBalance(balance + amount);
+        if (this.getCardBalance() > 0.0) {
+            this.setCardStatus("Active");
+        }
+
+    }
+
+    public void resetCard() {
+        this.cardBalance = 0.0;
+    }
+;
 }

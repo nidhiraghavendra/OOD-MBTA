@@ -8,11 +8,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="434.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controller.UserProfileFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="434.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserProfileFXMLController">
    <children>
       <TabPane prefHeight="434.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -20,8 +18,7 @@
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Circle fill="#eff0f2" layoutX="48.0" layoutY="53.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.3" />
-                        <Label layoutX="92.0" layoutY="26.0" prefHeight="35.0" prefWidth="170.0" text="User name">
+                        <Label layoutX="26.0" layoutY="23.0" prefHeight="35.0" prefWidth="170.0" text="User name" textFill="#0431ab">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -31,9 +28,9 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label layoutX="517.0" layoutY="53.0" prefHeight="35.0" prefWidth="48.0" text="\$0">
+                        <Label layoutX="517.0" layoutY="53.0" prefHeight="35.0" prefWidth="48.0" text="\$0" textFill="#0c60ae">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                         <Label layoutX="314.0" layoutY="18.0" prefHeight="35.0" prefWidth="199.0" text="Current Ride Card Balance">
@@ -41,9 +38,9 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label layoutX="513.0" layoutY="18.0" prefHeight="35.0" prefWidth="48.0" text="\$0">
+                        <Label layoutX="517.0" layoutY="18.0" prefHeight="35.0" prefWidth="48.0" text="\$0" textFill="#0c60ae">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                         <Label layoutX="27.0" layoutY="101.0" prefHeight="35.0" prefWidth="199.0" text="Recharge Now">
@@ -57,7 +54,12 @@
                         <TextField layoutX="73.0" layoutY="275.0" prefHeight="35.0" prefWidth="38.0" text="YY" />
                         <TextField layoutX="169.0" layoutY="275.0" prefHeight="35.0" prefWidth="60.0" text="CVV" />
                         <ComboBox layoutX="26.0" layoutY="140.0" prefHeight="32.0" prefWidth="149.0" />
-                        <Button layoutX="24.0" layoutY="328.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="211.0" text="RECHARGE" />
+                        <Button layoutX="24.0" layoutY="328.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: green;" text="RECHARGE" textFill="#fcf9f9" />
+                        <Label layoutX="26.0" layoutY="53.0" prefHeight="35.0" prefWidth="170.0" text="Account #" textFill="#0431ab">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </content>
