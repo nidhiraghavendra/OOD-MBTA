@@ -14,17 +14,15 @@ public class RidePass extends Card{
     public RidePass() {
         
     }
-    
-    @Override
-    public void calculateCardBalance() {
-    }
 
     @Override
     public void setLowerLimit() {
+        super.passFee = -20.0;
     }
 
     @Override
-    public void rechargeCard() {
+    public void setPassFee() {
+        super.passFee = 2.75;
     }
     
 }

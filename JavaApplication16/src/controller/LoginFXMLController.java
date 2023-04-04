@@ -109,7 +109,7 @@ public class LoginFXMLController implements Initializable {
 //                Generate a new Charlie card and Ride Pass for the user
                 ByteArrayInputStream in = getQRCode(QRCodeText);
                 useracc.getCharlieCard().setQRCodePath(in);
-                
+
                 ByteArrayInputStream inRide = getQRCode(QRCodeTextRide);
                 useracc.getRidePass().setQRCodePath(inRide);
                 

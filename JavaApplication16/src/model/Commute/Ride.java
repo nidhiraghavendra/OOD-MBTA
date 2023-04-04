@@ -39,34 +39,6 @@ public class Ride extends Commute {
     }
 
     public ObservableList<Route> getCommuteRoutes() {
-//    	String file = "C:\\Users\\chand\\OOD PROJECT\\OOD-MBTA\\JavaApplication16\\src\\ride.csv";
-//    	String line = "";
-//    	
-//        try {
-//        	BufferedReader reader = new BufferedReader(new FileReader(file));
-//        	while((line = reader.readLine()) != null) {
-//        		String[] row = line.split(",");
-//        		
-//        		System.out.println(row[1]);
-//        		
-//        		Route rideRoute = new Route();
-//        		Location location = new Location();
-////        		rideRoute.getID();
-//        		location.setName(row[0]);
-//        		rideRoute.setSource(location);
-//        		rideRoute.getDestination().setName(row[1]);
-//        		rideRoute.setDistance(Double.valueOf(row[2]));
-//        		rideRoute.setDuration(Double.valueOf(row[3]));
-//        		rideRoute.getCurrentLocation().setName(row[4]);
-//        		
-//        		this.route.add(rideRoute);
-//        		
-//    		}
-//        	
-//        }catch(Exception e) {
-//        	e.printStackTrace();
-//          }
-
         // populating routes using a 2D array
         String[][] matrix = new String[16][16];
         String line = "";
