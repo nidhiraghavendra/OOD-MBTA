@@ -112,7 +112,10 @@ public class LoginFXMLController implements Initializable {
 
                 ByteArrayInputStream inRide = getQRCode(QRCodeTextRide);
                 useracc.getRidePass().setQRCodePath(inRide);
-                
+                useracc.getCharlieCard().setLowerLimit();
+                useracc.getRidePass().setLowerLimit();
+                useracc.getCharlieCard().setPassFee();
+                useracc.getRidePass().setPassFee();
                 app.getCustomerDirectory().createCustomer(useracc);
                 
                 buttonSignUp.setText("Registered");

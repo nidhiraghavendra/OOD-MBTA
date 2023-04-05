@@ -8,39 +8,40 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="434.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserProfileFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="522.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserProfileFXMLController">
    <children>
-      <TabPane prefHeight="434.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="515.0" prefWidth="843.0" style="-fx-background-color: #ffff;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Profile">
+          <Tab fx:id="profileTab" onSelectionChanged="#profileTabClicked" text="Profile">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane prefHeight="496.0" prefWidth="853.0">
                      <children>
-                        <Label layoutX="26.0" layoutY="23.0" prefHeight="35.0" prefWidth="170.0" text="User name" textFill="#0431ab">
+                        <Label fx:id="username" layoutX="26.0" layoutY="23.0" prefHeight="35.0" prefWidth="170.0" text="User name" textFill="#0431ab">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="314.0" layoutY="53.0" prefHeight="35.0" prefWidth="199.0" text="Current Charlie Card Balance">
+                        <Label layoutX="422.0" layoutY="229.0" prefHeight="35.0" prefWidth="255.0" text="Current Charlie Card Balance">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="517.0" layoutY="53.0" prefHeight="35.0" prefWidth="48.0" text="\$0" textFill="#0c60ae">
+                        <Label fx:id="charlieCardBalance" layoutX="687.0" layoutY="229.0" prefHeight="35.0" prefWidth="103.0" text="\$0" textFill="#0c60ae">
                            <font>
-                              <Font name="System Bold" size="15.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="314.0" layoutY="18.0" prefHeight="35.0" prefWidth="199.0" text="Current Ride Card Balance">
+                        <Label layoutX="425.0" layoutY="109.0" prefHeight="35.0" prefWidth="252.0" text="Current Ride Card Balance">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="517.0" layoutY="18.0" prefHeight="35.0" prefWidth="48.0" text="\$0" textFill="#0c60ae">
+                        <Label fx:id="ridePassBalance" layoutX="687.0" layoutY="109.0" prefHeight="35.0" prefWidth="99.0" text="\$0" textFill="#0c60ae">
                            <font>
-                              <Font name="System Bold" size="15.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
                         <Label layoutX="27.0" layoutY="101.0" prefHeight="35.0" prefWidth="199.0" text="Recharge Now">
@@ -48,18 +49,40 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="24.0" layoutY="186.0" prefHeight="35.0" prefWidth="211.0" text="Name on card" />
-                        <TextField layoutX="24.0" layoutY="229.0" prefHeight="35.0" prefWidth="211.0" text="Card number" />
-                        <TextField layoutX="29.0" layoutY="275.0" prefHeight="35.0" prefWidth="38.0" text="MM" />
-                        <TextField layoutX="73.0" layoutY="275.0" prefHeight="35.0" prefWidth="38.0" text="YY" />
-                        <TextField layoutX="169.0" layoutY="275.0" prefHeight="35.0" prefWidth="60.0" text="CVV" />
-                        <ComboBox layoutX="26.0" layoutY="140.0" prefHeight="32.0" prefWidth="149.0" />
-                        <Button layoutX="24.0" layoutY="328.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: green;" text="RECHARGE" textFill="#fcf9f9" />
-                        <Label layoutX="26.0" layoutY="53.0" prefHeight="35.0" prefWidth="170.0" text="Account #" textFill="#0431ab">
+                        <TextField fx:id="name" layoutX="24.0" layoutY="186.0" prefHeight="35.0" prefWidth="211.0" text="Name on card" />
+                        <TextField fx:id="cardnumber" layoutX="24.0" layoutY="229.0" prefHeight="35.0" prefWidth="211.0" text="Card number" />
+                        <TextField fx:id="month" layoutX="29.0" layoutY="275.0" prefHeight="35.0" prefWidth="38.0" text="MM" />
+                        <TextField fx:id="year" layoutX="73.0" layoutY="275.0" prefHeight="35.0" prefWidth="38.0" text="YY" />
+                        <TextField fx:id="cvv" layoutX="169.0" layoutY="275.0" prefHeight="35.0" prefWidth="60.0" text="CVV" />
+                        <ComboBox fx:id="cardsComboBox" layoutX="26.0" layoutY="140.0" prefHeight="32.0" prefWidth="149.0" />
+                        <Button fx:id="rechargeBtn" layoutX="24.0" layoutY="328.0" mnemonicParsing="false" onAction="#rechargeBtnClicked" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: green;" text="RECHARGE" textFill="#fcf9f9" />
+                        <Label fx:id="accountnumber" layoutX="26.0" layoutY="53.0" prefHeight="35.0" prefWidth="170.0" text="Account #" textFill="#0431ab">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f6f7f800" height="372.0" layoutX="371.0" layoutY="21.0" stroke="#6f63e0" strokeType="INSIDE" width="460.0" />
+                        <Label layoutX="422.0" layoutY="73.0" text="RIDE PASS" underline="true">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="422.0" layoutY="194.0" text="CHARLIE CARD" underline="true">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="passStatus" layoutX="422.0" layoutY="141.0" text="Status">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="charlieStatus" layoutX="425.0" layoutY="262.0" text="Status">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="amount" layoutX="196.0" layoutY="140.0" prefHeight="34.0" prefWidth="67.0" promptText="0.0" />
                      </children>
                   </Pane>
                </content>

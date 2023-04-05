@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
  * @author Nidhi Raghavendra
  */
 public class Validation {
+
     String name;
     String email;
     String location;
@@ -23,11 +24,11 @@ public class Validation {
     Pattern p;
 
     public boolean validateName(String name) {
-        String nameValidate = "[A-Za-z]{10}";
+        String nameValidate = "[A-Za-z][A-Za-z\\s]{10}";
         p = Pattern.compile(nameValidate);
 
         if (!p.matcher(name).matches()) {
-           
+
             return true;
         }
 
@@ -41,7 +42,7 @@ public class Validation {
 
         if (!p.matcher(email)
                 .matches()) {
-            
+
             return true;
         }
         return false;
@@ -53,7 +54,7 @@ public class Validation {
 
         if (!p.matcher(address)
                 .matches()) {
-           
+
             return true;
         }
         return false;
@@ -65,7 +66,7 @@ public class Validation {
 
         if (!p.matcher(username)
                 .matches()) {
-            
+
             return true;
         }
         return false;
@@ -77,7 +78,7 @@ public class Validation {
 
         if (!p.matcher(password)
                 .matches()) {
-           
+
             return true;
         }
         return false;
@@ -89,7 +90,7 @@ public class Validation {
 
         if (!p.matcher(location)
                 .matches()) {
-            
+
             return true;
         }
         return false;
@@ -98,7 +99,7 @@ public class Validation {
     public boolean validatePhone(int phone) {
         if (String.valueOf(phone)
                 .length() != 10) {
-            
+
             return true;
         }
         return false;
@@ -108,8 +109,33 @@ public class Validation {
         if (String.valueOf(zipcode)
                 .length() < 5 || String.valueOf(zipcode)
                         .length() >= 6) {
-           
+
             return true;
+        }
+
+        return false;
+    }
+
+    public boolean validateMonth(String mm) {
+        if (Pattern.matches("^(0?[1-9]|1[012])$", mm)) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean validateYear(String y) {
+        if (Pattern.matches("[2][4-9]", y)) {
+                return true;
+        }
+
+        return false;
+    }
+    
+    public boolean validateCVV(String y) {
+        if (Pattern.matches("[1-9]{3}", y)) {
+                return true;
         }
 
         return false;
