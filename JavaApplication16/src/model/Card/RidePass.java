@@ -17,7 +17,7 @@ public class RidePass extends Card{
 
     @Override
     public void setLowerLimit() {
-        super.passFee = -20.0;
+        super.lowerLimit = -20.0;
     }
 
     @Override

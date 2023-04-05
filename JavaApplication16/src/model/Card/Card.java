@@ -19,8 +19,8 @@ public abstract class Card {
     private ByteArrayInputStream QRCodePath;
     private double cardBalance;
     private String cardStatus;
-    public static double lowerLimit = 0.0;
-    public static double passFee = 0.0;
+    public double lowerLimit;
+    public double passFee;
 
     public Card() {
         this.cardID = this.cardType + counter++;
@@ -67,24 +67,20 @@ public abstract class Card {
     }
 
     public void calculateCardBalance() {
-        if (this.getCardBalance() <= passFee) {
-            this.setCardBalance(passFee);
+        if (this.getCardBalance() <= lowerLimit) {
+            this.setCardBalance(lowerLimit);
             this.setCardStatus("Deactivated");
         } else {
             double balance = this.getCardBalance();
-            if (balance > lowerLimit && balance <= 0) {
-                balance -= passFee;
-                this.setCardBalance(balance);
-                this.setCardStatus("Insufficient balance");
+            if (balance > lowerLimit && balance <= 0.0) {
+                this.setCardStatus("Recharge Card");
             } else {
-                balance -= passFee;
                 this.setCardBalance(balance);
                 this.setCardStatus("Active");
             }
         }
     }
 
-    ;
     public abstract void setLowerLimit();
 
     public abstract void setPassFee();
@@ -94,12 +90,26 @@ public abstract class Card {
         this.setCardBalance(balance + amount);
         if (this.getCardBalance() > 0.0) {
             this.setCardStatus("Active");
-        }
+        } 
 
     }
 
     public void resetCard() {
         this.cardBalance = 0.0;
     }
-;
+
+    public boolean deductAmount(double amount) {
+        if(amount == 0.0) {
+            amount = passFee;
+        }
+        if (this.cardBalance >= 0.0) {
+            this.cardBalance -= amount;
+            return true;
+        } else if(this.cardBalance < 0.0 && this.cardBalance > this.lowerLimit && this.lowerLimit+amount >= this.lowerLimit) {
+            this.cardBalance += amount;
+            return true;
+        } 
+                
+        return false;
+    }
 }

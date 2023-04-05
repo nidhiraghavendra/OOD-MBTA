@@ -50,5 +50,9 @@ public class Customer {
         this.bookings = bookings;
     }
     
-    
+    public Transaction addTransaction() {
+        Transaction t = new Transaction();
+        this.transactions.add(t);
+        return t;
+    }
 }

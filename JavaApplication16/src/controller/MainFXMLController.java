@@ -30,6 +30,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javax.annotation.processing.Generated;
 import model.ApplicationSystem.ApplicationSystem;
+import model.Customer.Customer;
+import model.Transaction.Transaction;
 import model.UserAccount.UserAccount;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
@@ -50,7 +52,8 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private Label welcomeUserField;
-
+    @FXML
+    private Label welcomeUserField1;
     @FXML
     private Button accountBtn;
 
@@ -68,9 +71,29 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private Button userBtn;
-    
+
     @FXML
     private Button ride;
+
+    @FXML
+    private Button profileBtn;
+
+    @FXML
+    private Label charliestatus;
+
+    @FXML
+    private Label ridepassstatus;
+
+    @FXML
+    private TextField charlieAmt;
+
+    @FXML
+    private TextField rideAmt;
+
+    @FXML
+    private Button charlieBtn;
+    @FXML
+    private Button rideBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -83,14 +106,18 @@ public class MainFXMLController implements Initializable {
             UserAccount useraccount = app.getLoggedInUserAccount();
 
             welcomeUserField.setText(app.getLoggedInUserAccount().getName());
+            welcomeUserField1.setText(app.getLoggedInUserAccount().getName());
             accountBtn.setVisible(false);
+            profileBtn.setVisible(true);
             logoutBtn.setVisible(true);
 
             if (useraccount.getRole().getRoleType().equals("admin") || useraccount.getRole().getRoleType().equals("mbta")) {
                 userBtn.setVisible(true);
+                profileBtn.setVisible(false);
                 borderpane.getRight().setVisible(false);
             } else {
                 userBtn.setVisible(false);
+                profileBtn.setVisible(true);
                 // SHOW QR CODE
                 displayCard(useraccount);
                 borderpane.getRight().setVisible(true);
@@ -98,7 +125,9 @@ public class MainFXMLController implements Initializable {
 
         } else {
             welcomeUserField.setText("");
+            welcomeUserField1.setText("");
             accountBtn.setVisible(true);
+            profileBtn.setVisible(false);
             logoutBtn.setVisible(false);
             userBtn.setVisible(false);
             borderpane.getRight().setStyle("-fx-background-color: #ffff;");
@@ -144,8 +173,8 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private void rideButtonClicked(ActionEvent event) throws IOException {
-    	 Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/RideFXML.fxml"));
-         borderpane.setCenter(loadPane);
+        Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/RideFXML.fxml"));
+        borderpane.setCenter(loadPane);
     }
 
     @FXML
@@ -161,6 +190,11 @@ public class MainFXMLController implements Initializable {
         Image image2 = new Image(useraccount.getRidePass().getQRCodePath());
         imageviewride.setImage(image2);
         imageviewride.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");
+
+        useraccount.getCharlieCard().calculateCardBalance();
+        useraccount.getRidePass().calculateCardBalance();
+        charliestatus.setText(useraccount.getCharlieCard().getCardStatus());
+        ridepassstatus.setText(useraccount.getRidePass().getCardStatus());
     }
 
     @FXML
@@ -174,5 +208,92 @@ public class MainFXMLController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void profileBtnClicked(ActionEvent event) {
+        try {
+            // TODO
+
+            Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/UserProfileFXML.fxml"));
+            borderpane.setCenter(loadPane);
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void charlieBtnClicked(ActionEvent event) {
+        UserAccount user = this.app.getLoggedInUserAccount();
+        Customer customer = this.app.getCustomerDirectory().findACustomer(user);
+        if (charlieAmt.getText().equals("")) {
+            user.getCharlieCard().calculateCardBalance();
+            boolean result = user.getCharlieCard().deductAmount(0.0);
+            if (result) {
+
+                Transaction t = customer.addTransaction();
+                t.setAmount(user.getCharlieCard().passFee);
+                t.setStatus("Paid");
+                t.setTransactionType("charlie card");
+            } else {
+                Transaction t = customer.addTransaction();
+                t.setAmount(user.getCharlieCard().passFee);
+                t.setStatus("Failed");
+                t.setTransactionType("charlie card");
+            }
+        } else {
+            boolean result = user.getCharlieCard().deductAmount(Double.valueOf(charlieAmt.getText()));
+            if (result) {
+
+                Transaction t = customer.addTransaction();
+                t.setAmount(Double.valueOf(charlieAmt.getText()));
+                t.setStatus("Paid");
+                t.setTransactionType("charlie card");
+            } else {
+                Transaction t = customer.addTransaction();
+                t.setAmount(Double.valueOf(charlieAmt.getText()));
+                t.setStatus("Failed");
+                t.setTransactionType("charlie card");
+            }
+        }
+        user.getCharlieCard().calculateCardBalance();
+        charliestatus.setText(user.getCharlieCard().getCardStatus());
+    }
+
+    @FXML
+    private void rideBtnClicked(ActionEvent event) {
+        UserAccount user = this.app.getLoggedInUserAccount();
+        Customer customer = this.app.getCustomerDirectory().findACustomer(user);
+        if (rideAmt.getText().equals("")) {
+            user.getRidePass().calculateCardBalance();
+            boolean result = user.getRidePass().deductAmount(0.0);
+            if (result) {
+                Transaction t = customer.addTransaction();
+                t.setAmount(user.getRidePass().passFee);
+                t.setStatus("Paid");
+                t.setTransactionType("ride pass");
+            } else {
+                Transaction t = customer.addTransaction();
+                t.setAmount(user.getRidePass().passFee);
+                t.setStatus("Failed");
+                t.setTransactionType("ride pass");
+            }
+        } else {
+            boolean result = user.getRidePass().deductAmount(Double.valueOf(rideAmt.getText()));
+            if (result) {
+                Transaction t = customer.addTransaction();
+                t.setAmount(Double.valueOf(rideAmt.getText()));
+                t.setStatus("Paid");
+                t.setTransactionType("ride pass");
+            } else {
+                Transaction t = customer.addTransaction();
+                t.setAmount(Double.valueOf(rideAmt.getText()));
+                t.setStatus("Failed");
+                t.setTransactionType("ride pass");
+            }
+        }
+        user.getRidePass().calculateCardBalance();
+        ridepassstatus.setText(user.getRidePass().getCardStatus());
     }
 }

@@ -17,7 +17,7 @@ public class CharlieCard extends Card {
 
     @Override
     public void setLowerLimit() {
-        super.passFee = -10.0;
+        super.lowerLimit = -10.0;
     }
 
     @Override
