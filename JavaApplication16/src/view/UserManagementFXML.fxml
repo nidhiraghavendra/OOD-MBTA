@@ -64,7 +64,7 @@
                         <TextField fx:id="fieldEmail" layoutX="586.0" layoutY="68.0" text="email" />
                         <TextField fx:id="fieldName" layoutX="586.0" layoutY="111.0" text="name" />
                         <TextField fx:id="license" layoutX="586.0" layoutY="154.0" text="license no." />
-                        <TextField fx:id="brand" layoutX="586.0" layoutY="200.0" text="brand" />
+                        <TextField fx:id="brand" layoutX="586.0" layoutY="200.0" text="Plate" />
                         <DatePicker fx:id="picker" layoutX="574.0" layoutY="246.0" />
                      </children>
                   </AnchorPane>
@@ -74,15 +74,15 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ComboBox layoutX="47.0" layoutY="62.0" prefWidth="150.0" />
+                        <ComboBox fx:id="accountcombobox" layoutX="47.0" layoutY="62.0" onAction="#comboClicked" prefWidth="150.0" />
                         <Label layoutX="47.0" layoutY="32.0" prefHeight="24.0" prefWidth="161.0" text="Choose a customer account" />
-                        <TableView layoutX="278.0" layoutY="44.0" prefHeight="221.0" prefWidth="478.0">
+                        <TableView fx:id="transTableView" layoutX="278.0" layoutY="44.0" prefHeight="221.0" prefWidth="478.0">
                            <columns>
-                              <TableColumn prefWidth="114.0" text="Transaction ID" />
-                              <TableColumn prefWidth="113.0" text="Transaction Date" />
-                              <TableColumn prefWidth="72.0" text="Fare" />
-                              <TableColumn prefWidth="84.0" text="Travel Type" />
-                              <TableColumn prefWidth="93.0" text="Status" />
+                              <TableColumn fx:id="tid" prefWidth="114.0" text="Transaction ID" />
+                              <TableColumn fx:id="tdate" prefWidth="113.0" text="Transaction Date" />
+                              <TableColumn fx:id="tprice" prefWidth="72.0" text="Fare" />
+                              <TableColumn fx:id="ttype" prefWidth="84.0" text="Travel Type" />
+                              <TableColumn fx:id="tstatus" prefWidth="93.0" text="Status" />
                            </columns>
                         </TableView>
                      </children>

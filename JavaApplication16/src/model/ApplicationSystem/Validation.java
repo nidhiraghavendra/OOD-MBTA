@@ -24,7 +24,7 @@ public class Validation {
     Pattern p;
 
     public boolean validateName(String name) {
-        String nameValidate = "[A-Za-z][A-Za-z\\s]{10}";
+        String nameValidate = "[A-Za-z][A-Za-z\\s]+";
         p = Pattern.compile(nameValidate);
 
         if (!p.matcher(name).matches()) {
@@ -96,6 +96,42 @@ public class Validation {
         return false;
     }
 
+    public boolean validateVIN(String vin) {
+        String locvalidate = "[a-zA-Z0-9]{10}";
+        p = Pattern.compile(locvalidate);
+
+        if (!p.matcher(vin)
+                .matches()) {
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean validateDL(String location) {
+        String locvalidate = "[A-Z][A-Z0-9]{6}";
+        p = Pattern.compile(locvalidate);
+
+        if (!p.matcher(location)
+                .matches()) {
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean validatePlate(String location) {
+        String locvalidate = "[A-Z]{2}[0-9]{4}";
+        p = Pattern.compile(locvalidate);
+
+        if (!p.matcher(location)
+                .matches()) {
+
+            return true;
+        }
+        return false;
+    }
+
     public boolean validatePhone(int phone) {
         if (String.valueOf(phone)
                 .length() != 10) {
@@ -127,15 +163,15 @@ public class Validation {
 
     public boolean validateYear(String y) {
         if (Pattern.matches("[2][4-9]", y)) {
-                return true;
+            return true;
         }
 
         return false;
     }
-    
+
     public boolean validateCVV(String y) {
         if (Pattern.matches("[1-9]{3}", y)) {
-                return true;
+            return true;
         }
 
         return false;
