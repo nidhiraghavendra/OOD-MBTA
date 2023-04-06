@@ -65,7 +65,7 @@
                   <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="TRAIN" textFill="#fcf9f9" />
                   <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="BUS" textFill="#fcf9f9" />
                   <Button fx:id="ride" minWidth="-Infinity" mnemonicParsing="false" onAction="#rideButtonClicked" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="RIDE" textFill="#fcf9f9" />
-                  <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="CHARLIE CARD" textFill="#fcf9f9" />
+                  <Button fx:id="charlie" minWidth="-Infinity" mnemonicParsing="false" onAction="#charlieButtonClicked" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="CHARLIE CARD" textFill="#fcf9f9" />
                   <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="FAQ" textFill="#fcf9f9" />
                   <Button fx:id="userBtn" layoutX="10.0" layoutY="210.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#userBtnClicked" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="ACCOUNTS" textFill="#fcf9f9" />
                </children>

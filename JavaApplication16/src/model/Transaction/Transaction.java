@@ -13,7 +13,8 @@ import java.util.Date;
  * @author Nidhi Raghavendra
  */
 public class Transaction {
-    private static int transactionId;
+    public static int count;
+    private int transactionId;
     private long cardDetails;
     private double amount;
     private String status;
@@ -21,15 +22,17 @@ public class Transaction {
     private String transactionType;
     
     public Transaction() {
-        transactionId++;
+        count++;
+        this.transactionId = count;
+        this.transactionDate = LocalDate.now();
     }
 
-    public static int getTransactionId() {
-        return transactionId;
+    public int getTransactionId() {
+        return this.transactionId;
     }
 
-    public static void setTransactionId(int transactionId) {
-        Transaction.transactionId = transactionId;
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
     }
 
     public long getCardDetails() {
