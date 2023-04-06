@@ -186,6 +186,7 @@ public class MainFXMLController implements Initializable {
     }
 
     private void displayCard(UserAccount useraccount) {
+        System.out.print(useraccount.getCharlieCard().getQRCodePath());
         Image image = new Image(useraccount.getCharlieCard().getQRCodePath());
         imageview.setImage(image);
         imageview.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");

@@ -25,11 +25,6 @@ public class CharliePassFXMLController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @FXML
-    private ImageView imageview1;
-
-    @FXML
-    private ImageView imageviewride1;
     
     private ApplicationSystem app;
 
@@ -40,7 +35,12 @@ public class CharliePassFXMLController implements Initializable {
 
     @FXML
     private Label charliestatus;
-
+    
+    @FXML
+    ImageView view1;
+    @FXML
+    ImageView view2;
+    
     @FXML
     private Label ridepassstatus;
 
@@ -54,7 +54,7 @@ public class CharliePassFXMLController implements Initializable {
         }
     }
 
-    private void displayCard(UserAccount useraccount) {
+    public void displayCard(UserAccount useraccount) {
         
         useraccount.getCharlieCard().calculateCardBalance();
         useraccount.getRidePass().calculateCardBalance();
@@ -62,11 +62,18 @@ public class CharliePassFXMLController implements Initializable {
         ridepassstatus.setText(useraccount.getRidePass().getCardStatus());
         welcomeUserField.setText(useraccount.getName());
         welcomeUserField1.setText(useraccount.getName());
+        
+        System.out.print(useraccount.getCharlieCard().getQRCodePath());
+        
         Image image = new Image(useraccount.getCharlieCard().getQRCodePath());
-        imageview1.setImage(image);
+        view1.setImage(image);
+        view1.setCache(false);
+        view1.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");
 
         Image image2 = new Image(useraccount.getRidePass().getQRCodePath());
-        imageviewride1.setImage(image2);
+        view2.setImage(image2);
+        view2.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");
+        
     }
 
 }

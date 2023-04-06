@@ -105,7 +105,7 @@ public abstract class Card {
         if (this.cardBalance >= 0.0) {
             this.cardBalance -= amount;
             return true;
-        } else if(this.cardBalance < 0.0 && this.cardBalance > this.lowerLimit && this.lowerLimit+amount >= this.lowerLimit) {
+        } else if(this.cardBalance < 0.0 && this.cardBalance > this.lowerLimit && this.cardBalance-amount >= this.lowerLimit) {
             this.cardBalance -= amount;
             return true;
         } 

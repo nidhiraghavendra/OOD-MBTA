@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -32,6 +35,7 @@ import model.ApplicationSystem.ApplicationSystem;
 import model.ApplicationSystem.Validation;
 import model.Customer.Customer;
 import model.RideAgent.RideAgent;
+import model.Transaction.Transaction;
 import model.UserAccount.UserAccount;
 
 /**
@@ -61,7 +65,21 @@ public class UserManagementFXMLController implements Initializable {
     TableView<UserAccount> rideTableView;
 
     @FXML
-    TableView<UserAccount> transTableView;
+    TableView<Transaction> transTableView;
+
+    @FXML
+    TableColumn<Transaction, String> tid;
+    @FXML
+    TableColumn<Transaction, String> tdate;
+    @FXML
+    TableColumn<Transaction, String> tstatus;
+    @FXML
+    TableColumn<Transaction, String> tprice;
+    @FXML
+    TableColumn<Transaction, String> ttype;
+
+    @FXML
+    ComboBox<UserAccount> accountcombobox;
 
     @FXML
     TableColumn<UserAccount, String> colAccountId;
@@ -128,6 +146,12 @@ public class UserManagementFXMLController implements Initializable {
         users = this.app.getUserdirectory().getUseraccountlist();
         System.out.println("In User management controller :: " + app.getCustomerDirectory().getCustomerlist().size());
 
+        transTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue ov, Object t, Object t1) {
+                transTableClicked();
+            }
+        });
     }
 
     @FXML
@@ -163,6 +187,10 @@ public class UserManagementFXMLController implements Initializable {
 
     @FXML
     private void rideTabClicked(Event e) {
+        populateRideAgent();
+    }
+
+    public void populateRideAgent() {
         colIdR.setCellValueFactory(new PropertyValueFactory<>("useraccountId"));
         colEmailR.setCellValueFactory(new PropertyValueFactory<>("email"));
         colUsernameR.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -176,10 +204,40 @@ public class UserManagementFXMLController implements Initializable {
 
         rideTableView.setItems(items);
     }
-
     @FXML
     private void transactionTabClicked(Event e) {
 
+        ArrayList<Customer> customers = this.app.getCustomerDirectory().getCustomerlist();
+
+        ObservableList<UserAccount> accountlist = FXCollections.observableArrayList();
+
+        for (Customer c : customers) {
+            accountlist.add(c.getUseraccount());
+        }
+
+        accountcombobox.setItems(accountlist);
+
+    }
+
+    private void transTableClicked() {
+        Transaction selected = transTableView.getSelectionModel().getSelectedItem();
+        selected.setStatus("Paid");
+    }
+
+    @FXML
+    private void comboClicked(Event e) {
+        tid.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
+        tdate.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
+        tstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        tprice.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        ttype.setCellValueFactory(new PropertyValueFactory<>("transactionType"));
+
+        UserAccount user = accountcombobox.getSelectionModel().getSelectedItem();
+
+        ObservableList<Transaction> items = this.app.getCustomerDirectory().findACustomer(user).getTransactions();
+        if (items != null || items.size() > 0) {
+            transTableView.setItems(items);
+        }
     }
 
     @FXML
@@ -191,29 +249,43 @@ public class UserManagementFXMLController implements Initializable {
         LocalDate date = picker.getValue();
 
         Validation validate = new Validation();
+        boolean v = true;
 
         if (validate.validateEmail(email)) {
-            displayAlert("Invalid email address");
-        }       
-        if(validate.validateName(name)) {
+            v = false;
+            displayAlert("Invalid email address"); 
+        }
+        if (validate.validateName(name)) {
+            v = false;
             displayAlert("Invalid name");
         }
-        RideAgent ride = app.getRideAgentDirectory().createRideAgent();
-        ride.getUseraccount().setEmail(email);
-        ride.getUseraccount().setName(name);
-        ride.getUseraccount().setRoleType("agent");
-        ride.getUseraccount().setUsername(name);
-        ride.setLicense(l);
-        ride.getVehicle().setCarBrand(b);
+        if (validate.validateDL(l)) {
+            v = false;
+            displayAlert("Invalid DL");
+        }
+        if (validate.validatePlate(b)) {
+            v = false;
+            displayAlert("Invalid Vehicle Plate No.");
+        }
+        if (v) {
+            RideAgent ride = app.getRideAgentDirectory().createRideAgent();
+            ride.getUseraccount().setEmail(email);
+            ride.getUseraccount().setName(name);
+            ride.getUseraccount().setRoleType("agent");
+            ride.getUseraccount().setUsername(name);
+            ride.setLicense(l);
+            ride.getVehicle().setCarBrand(b);
 
-        app.getUserdirectory().getUseraccountlist().add(ride.getUseraccount());
+            app.getUserdirectory().getUseraccountlist().add(ride.getUseraccount());
+        }
+        populateRideAgent();
     }
 
     private void displayAlert(String message) {
         alert.setTitle("");
         alert.setContentText(message);
         alert.getDialogPane().getButtonTypes().add(buttontype);
-        
+
         alert.showAndWait();
     }
 }
