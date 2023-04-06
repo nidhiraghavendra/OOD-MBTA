@@ -6,6 +6,8 @@
 package model.Customer;
 
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.ApplicationSystem.UserProfile.Profile;
 import model.Transaction.RideBooking;
 import model.Transaction.Transaction;
@@ -17,13 +19,13 @@ import model.UserAccount.UserAccount;
  */
 public class Customer {
     UserAccount useraccount;
-    ArrayList<Transaction> transactions;
-    ArrayList<RideBooking> bookings;
+    ObservableList<Transaction> transactions;
+    ObservableList<RideBooking> bookings;
     
     public Customer() {
         this.useraccount = new UserAccount();
-        this.transactions = new ArrayList<Transaction>();
-        this.bookings = new ArrayList<RideBooking>();
+        this.transactions = FXCollections.observableArrayList();
+        this.bookings = FXCollections.observableArrayList();
     }
 
     public UserAccount getUseraccount() {
@@ -34,19 +36,19 @@ public class Customer {
         this.useraccount = useraccount;
     }
 
-    public ArrayList<Transaction> getTransactions() {
+    public ObservableList<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(ArrayList<Transaction> transactions) {
+    public void setTransactions(ObservableList<Transaction> transactions) {
         this.transactions = transactions;
     }
 
-    public ArrayList<RideBooking> getBookings() {
+    public ObservableList<RideBooking> getBookings() {
         return bookings;
     }
 
-    public void setBookings(ArrayList<RideBooking> bookings) {
+    public void setBookings(ObservableList<RideBooking> bookings) {
         this.bookings = bookings;
     }
     

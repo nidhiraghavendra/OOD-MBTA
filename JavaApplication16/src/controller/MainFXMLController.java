@@ -94,6 +94,8 @@ public class MainFXMLController implements Initializable {
     private Button charlieBtn;
     @FXML
     private Button rideBtn;
+    @FXML
+    private Button charlie;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -178,8 +180,9 @@ public class MainFXMLController implements Initializable {
     }
 
     @FXML
-    private void charlieButtonClicked(ActionEvent event) {
-
+    private void charlieButtonClicked(ActionEvent event) throws IOException {
+        Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/CharliePassFXML.fxml"));
+        borderpane.setCenter(loadPane);
     }
 
     private void displayCard(UserAccount useraccount) {

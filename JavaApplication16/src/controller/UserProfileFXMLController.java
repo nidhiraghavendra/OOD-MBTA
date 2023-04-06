@@ -20,7 +20,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.ApplicationSystem.ApplicationSystem;
 import model.ApplicationSystem.Validation;
 import model.Customer.Customer;
@@ -84,7 +87,22 @@ public class UserProfileFXMLController implements Initializable {
 
     @FXML
     Tab profileTab;
-
+    @FXML
+    Tab transactionTab;
+    
+    @FXML
+    TableView<Transaction> tranTable;
+    @FXML
+    TableColumn<Transaction, String> tid;
+    @FXML
+    TableColumn<Transaction, String> tdate;
+    @FXML
+    TableColumn<Transaction, String> tstatus;
+    @FXML
+    TableColumn<Transaction, String> tprice;
+    @FXML
+    TableColumn<Transaction, String> ttype;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -176,5 +194,19 @@ public class UserProfileFXMLController implements Initializable {
         alert.getDialogPane().getButtonTypes().add(buttontype);
 
         alert.showAndWait();
+    }
+    
+    @FXML
+    public void transactionTabClicked(Event e) {
+        tid.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
+        tdate.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
+        tstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        tprice.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        ttype.setCellValueFactory(new PropertyValueFactory<>("transactionType"));
+        
+        ObservableList<Transaction> items = this.customer.getTransactions();
+        if(items != null || items.size() > 0) {
+            tranTable.setItems(items);
+        }
     }
 }

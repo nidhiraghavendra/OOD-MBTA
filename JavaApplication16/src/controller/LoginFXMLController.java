@@ -145,7 +145,7 @@ public class LoginFXMLController implements Initializable {
     }
 
     private ByteArrayInputStream getQRCode(String QRCodeText) {
-        ByteArrayOutputStream out = QRCode.from(QRCodeText).to(ImageType.PNG).withSize(100, 100).stream();
+        ByteArrayOutputStream out = QRCode.from(QRCodeText).to(ImageType.PNG).withSize(200, 200).stream();
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
         
         return in;

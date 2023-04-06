@@ -5,8 +5,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -87,7 +90,26 @@
                   </Pane>
                </content>
             </Tab>
-          <Tab text="Transactions" />
+          <Tab fx:id="transactionTab" onSelectionChanged="#transactionTabClicked" text="Transactions">
+               <content>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="486.0" prefWidth="881.0">
+                           <children>
+                              <TableView fx:id="tranTable" layoutX="65.0" layoutY="59.0" prefHeight="350.0" prefWidth="700.0">
+                                <columns>
+                                  <TableColumn fx:id="tid" prefWidth="97.0" text="ID" />
+                                  <TableColumn fx:id="tdate" prefWidth="130.0" text="Date" />
+                                    <TableColumn fx:id="tprice" prefWidth="181.0" text="Amount" />
+                                    <TableColumn fx:id="ttype" prefWidth="141.0" text="Type" />
+                                    <TableColumn fx:id="tstatus" prefWidth="150.0" text="Status" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+               </content></Tab>
         </tabs>
       </TabPane>
    </children>
