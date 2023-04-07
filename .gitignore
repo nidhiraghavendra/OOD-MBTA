@@ -1,5 +1,8 @@
 build
-/build
-/test
+JavaApplication16/build
+JavaApplication16/test
 test
-/nbproject
+JavaApplication16/nbproject
+JavaApplication16/.classpath
+JavaApplication16/.project
+JavaApplication16/.settings
