@@ -7,6 +7,8 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -37,9 +39,9 @@ public class CharliePassFXMLController implements Initializable {
     private Label charliestatus;
     
     @FXML
-    ImageView view1;
+    private ImageView view1;
     @FXML
-    ImageView view2;
+    private ImageView view2;
     
     @FXML
     private Label ridepassstatus;
@@ -50,6 +52,11 @@ public class CharliePassFXMLController implements Initializable {
         this.app = ApplicationSystem.getInstance();
         UserAccount useraccount = this.app.getLoggedInUserAccount();
         if (useraccount != null) {
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(CharliePassFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             displayCard(useraccount);
         }
     }
@@ -64,13 +71,13 @@ public class CharliePassFXMLController implements Initializable {
         welcomeUserField1.setText(useraccount.getName());
         
         System.out.print(useraccount.getCharlieCard().getQRCodePath());
-        
-        Image image = new Image(useraccount.getCharlieCard().getQRCodePath());
+                
+        Image image = new Image("s.jpg");
         view1.setImage(image);
         view1.setCache(false);
         view1.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");
 
-        Image image2 = new Image(useraccount.getRidePass().getQRCodePath());
+        Image image2 = new Image("s.jpg");
         view2.setImage(image2);
         view2.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");
         

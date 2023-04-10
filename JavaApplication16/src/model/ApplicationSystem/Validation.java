@@ -61,7 +61,7 @@ public class Validation {
     }
 
     public boolean validateUsername(String username) {
-        String uservalidate = "[a-zA-Z0-9!@_]{4,100}";
+        String uservalidate = "[a-zA-Z0-9]{4,100}";
         p = Pattern.compile(uservalidate);
 
         if (!p.matcher(username)

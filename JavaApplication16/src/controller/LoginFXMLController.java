@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,11 +19,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.ApplicationSystem.ApplicationSystem;
+import model.ApplicationSystem.Validation;
 import model.Role.CustomerRole;
 import model.UserAccount.UserAccount;
 import model.UserAccount.UserAccountDirectory;
@@ -43,6 +48,9 @@ public class LoginFXMLController implements Initializable {
     Stage stage;
     ApplicationSystem app;
 
+    ObservableList<UserAccount> users;
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    ButtonType buttontype = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
     @FXML
     private TextField fieldUsername;
 
@@ -63,8 +71,7 @@ public class LoginFXMLController implements Initializable {
 
     @FXML
     private Button buttonLogin;
-    
-    
+
     @FXML
     private Button buttonSignUp;
 
@@ -75,8 +82,7 @@ public class LoginFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-        
+
     }
 
     @FXML
@@ -95,30 +101,55 @@ public class LoginFXMLController implements Initializable {
             String usenrame = fieldNewUsername.getText();
             String pass = fieldNewPassword.getText();
             Boolean user = app.getUserdirectory().checkIfExists(usenrame, pass);
+
+            boolean v = true;
+
             if (user) {
                 // show a message dialogue
 
-                System.out.println("Already in");
+                displayAlert("Credentials already exist with us. Please Log In.");
 
             } else {
+                Validation validate = new Validation();
+                if (validate.validateUsername(fieldNewUsername.getText())) {
+                    v = false;
+                    displayAlert("Invalid username");
+                }
+                if (validate.validatePassword(fieldNewPassword.getText())) {
+                    v = false;
+                    displayAlert("Password is not strong.");
+                }
+                if (validate.validateName(fieldName.getText())) {
+                    v = false;
+                    displayAlert("Invalid name");
+                }
+                if (validate.validateEmail(fieldEmail.getText())) {
+                    v = false;
+                    displayAlert("Invalid Email ID");
+                }
 
-                UserAccount useracc = app.getUserdirectory().createNewUserAccount(fieldNewPassword.getText(), fieldNewPassword.getText(), fieldName.getText(), fieldEmail.getText());
-                useracc.setRole(new CustomerRole());
-                String QRCodeText = useracc.getUsername() + useracc.getUseraccountId() + "MBTA charlie card";
-                String QRCodeTextRide = useracc.getUsername() + useracc.getUseraccountId() + "MBTA ride pass";
+                if (v) {
+
+                    UserAccount useracc = app.getUserdirectory().createNewUserAccount(fieldNewUsername.getText(), fieldNewPassword.getText(), fieldName.getText(), fieldEmail.getText());
+                    useracc.setRole(new CustomerRole());
+                    String QRCodeText = useracc.getUsername() + useracc.getUseraccountId() + "MBTA charlie card";
+                    String QRCodeTextRide = useracc.getUsername() + useracc.getUseraccountId() + "MBTA ride pass";
 //                Generate a new Charlie card and Ride Pass for the user
-                ByteArrayInputStream in = getQRCode(QRCodeText);
-                useracc.getCharlieCard().setQRCodePath(in);
+                    ByteArrayInputStream in = getQRCode(QRCodeText);
+                    useracc.getCharlieCard().setQRCodePath(in);
 
-                ByteArrayInputStream inRide = getQRCode(QRCodeTextRide);
-                useracc.getRidePass().setQRCodePath(inRide);
-                useracc.getCharlieCard().setLowerLimit();
-                useracc.getRidePass().setLowerLimit();
-                useracc.getCharlieCard().setPassFee();
-                useracc.getRidePass().setPassFee();
-                app.getCustomerDirectory().createCustomer(useracc);
-                
-                buttonSignUp.setText("Registered");
+                    ByteArrayInputStream inRide = getQRCode(QRCodeTextRide);
+                    useracc.getRidePass().setQRCodePath(inRide);
+                    useracc.getCharlieCard().setLowerLimit();
+                    useracc.getRidePass().setLowerLimit();
+                    useracc.getCharlieCard().setPassFee();
+                    useracc.getRidePass().setPassFee();
+                    app.getCustomerDirectory().createCustomer(useracc);
+
+                    buttonSignUp.setText("Registered");
+                } else {
+                    displayAlert("Invalid form inputs. Failed to register.");
+                }
 
             }
         } catch (Exception e) {
@@ -140,14 +171,24 @@ public class LoginFXMLController implements Initializable {
             Scene scene = new Scene(root, 1000, 1000);
             stage.setScene(scene);
             stage.show();
+        } else {
+            displayAlert("Invalid credentials!");
         }
 
+    }
+
+    private void displayAlert(String message) {
+        alert.setTitle("");
+        alert.setContentText(message);
+        alert.getDialogPane().getButtonTypes().add(buttontype);
+
+        alert.showAndWait();
     }
 
     private ByteArrayInputStream getQRCode(String QRCodeText) {
         ByteArrayOutputStream out = QRCode.from(QRCodeText).to(ImageType.PNG).withSize(200, 200).stream();
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
-        
+
         return in;
     }
 }
