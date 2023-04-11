@@ -44,8 +44,10 @@
                 <Label layoutX="514.0" layoutY="506.0" prefHeight="17.0" prefWidth="95.0" text="RIDE PASS" textFill="WHITE" />
                 <Label layoutX="235.0" layoutY="145.0" prefHeight="17.0" prefWidth="39.0" text="MBTA" textAlignment="CENTER" textFill="WHITE" />
                 <Label layoutX="235.0" layoutY="459.0" prefHeight="17.0" prefWidth="39.0" text="MBTA" textAlignment="CENTER" textFill="WHITE" />
-            <ImageView fx:id="view1" fitHeight="100.0" fitWidth="100.0" layoutX="241.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="view2" fitHeight="173.0" fitWidth="200.0" layoutX="237.0" layoutY="508.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="view1" fitHeight="186.0" fitWidth="178.0" layoutX="241.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
+          
+                <ImageView fx:id="view2" fitHeight="173.0" fitWidth="200.0" layoutX="241.0" layoutY="496.0" pickOnBounds="true" preserveRatio="true" />
+             
                 
                 
             </children>
