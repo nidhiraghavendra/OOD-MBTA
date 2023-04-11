@@ -60,6 +60,7 @@ public class ApplicationSystem {
         this.rideAgentDirectory = new RideAgenDirectory();
         this.commuteDirectory = new CommuteDirectory();
         userLoggedIn = false;
+        this.graph = new Graph();
     }
 
     public UserAccountDirectory getUserdirectory() {

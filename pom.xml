@@ -28,25 +28,45 @@
   	<dependency>
   		<groupId>net.glxn</groupId>
   		<artifactId>qrgen</artifactId>
-  		<version>1.4</version>
   	</dependency>
   	<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
 <dependency>
     <groupId>com.google.zxing</groupId>
     <artifactId>core</artifactId>
-    <version>3.0.0</version>
 </dependency>
 <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 <dependency>
     <groupId>com.googlecode.json-simple</groupId>
     <artifactId>json-simple</artifactId>
-    <version>1.1.1</version>
 </dependency>
 <!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
 <dependency>
     <groupId>com.google.zxing</groupId>
     <artifactId>javase</artifactId>
-    <version>3.3.0</version>
 </dependency>
   </dependencies>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>net.glxn</groupId>
+  			<artifactId>qrgen</artifactId>
+  			<version>1.4</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>com.google.zxing</groupId>
+  			<artifactId>core</artifactId>
+  			<version>3.0.0</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>com.googlecode.json-simple</groupId>
+  			<artifactId>json-simple</artifactId>
+  			<version>1.1.1</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>com.google.zxing</groupId>
+  			<artifactId>javase</artifactId>
+  			<version>3.3.0</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>
