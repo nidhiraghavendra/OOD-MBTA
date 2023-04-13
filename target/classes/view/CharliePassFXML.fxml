@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="612.0" prefWidth="894.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CharliePassFXMLController">
+    <children>
+        <Pane prefHeight="687.0" prefWidth="894.0">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1fffa" height="247.0" layoutX="224.0" layoutY="140.0" stroke="#fffefe" strokeType="INSIDE" width="526.0" />
+                <Label fx:id="welcomeUserField1" layoutX="513.0" layoutY="237.0" prefHeight="20.0" prefWidth="192.0" text="Label">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="347.0" layoutY="82.0" prefHeight="27.0" prefWidth="266.0" text="You can find your E-Cards below" textFill="#4536c9">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#961d8a" height="255.0" layoutX="223.0" layoutY="455.0" stroke="#fffefe" strokeType="INSIDE" width="526.0" />
+                <Label fx:id="welcomeUserField" layoutX="516.0" layoutY="546.0" prefHeight="17.0" prefWidth="167.0" text="Label" textFill="#fffbfb">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="charliestatus" layoutX="511.0" layoutY="275.0" prefHeight="20.0" prefWidth="178.0" text="Label">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="ridepassstatus" layoutX="514.0" layoutY="581.0" prefHeight="17.0" prefWidth="158.0" text="Label" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#11c6da" height="27.0" layoutX="224.0" layoutY="140.0" stroke="#fcf9f9" strokeType="INSIDE" width="526.0" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6a0d8a" height="27.0" layoutX="223.0" layoutY="455.0" stroke="#fcf9f9" strokeType="INSIDE" strokeWidth="0.0" width="526.0" />
+                <Label layoutX="513.0" layoutY="208.0" prefHeight="17.0" prefWidth="95.0" text="CHARLIE CARD" />
+                <Label layoutX="514.0" layoutY="506.0" prefHeight="17.0" prefWidth="95.0" text="RIDE PASS" textFill="WHITE" />
+                <Label layoutX="235.0" layoutY="145.0" prefHeight="17.0" prefWidth="39.0" text="MBTA" textAlignment="CENTER" textFill="WHITE" />
+                <Label layoutX="235.0" layoutY="459.0" prefHeight="17.0" prefWidth="39.0" text="MBTA" textAlignment="CENTER" textFill="WHITE" />
+                <ImageView fx:id="view1" fitHeight="186.0" fitWidth="178.0" layoutX="241.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
+          
+                <ImageView fx:id="view2" fitHeight="173.0" fitWidth="200.0" layoutX="241.0" layoutY="496.0" pickOnBounds="true" preserveRatio="true" />
+             
+                
+                
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

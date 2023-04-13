@@ -1,0 +1,28 @@
+[
+	{
+		"Green E": [
+			"Heath Street",
+			"LongWood Medical Area",
+			"Northeastern University",
+			"Symphony",
+			"Prudential",
+			"Copley",
+			"Arlington",
+			"Boylston",
+			"Park Street",
+			"Government Center",
+			"Haymarket",
+			"North Station",
+			"Lechmere",
+			"Medford"
+		]
+	},
+	{
+	"Orange Line": ["Ruggles","Roxbury Crossing","Jackson Square","Stony Brook","Green Street","Forest Hills"
+	]
+	},
+	{
+	"22": ["Ruggles","Tremont Street","Roxbury Crossing","Jackson Square","Dimock Street","Bray Street"
+	]
+	}
+]

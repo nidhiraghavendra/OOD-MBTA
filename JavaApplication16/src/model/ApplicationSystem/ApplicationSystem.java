@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package model.ApplicationSystem;
-
+import model.Routes.Graph;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,6 +18,7 @@ import model.RideAgent.RideAgenDirectory;
 import model.RideAgent.RideAgent;
 import model.Role.MBTAAdminRole;
 import model.Role.SystemAdminRole;
+import model.Routes.Graph;
 import model.Routes.Location;
 import model.Routes.Route;
 import model.UserAccount.UserAccount;
@@ -38,7 +39,7 @@ public class ApplicationSystem {
     private CustomerDirectory customerDirectory;
     private RideAgenDirectory rideAgentDirectory;
     private CommuteDirectory commuteDirectory;
-
+    private Graph graph;
     public static ApplicationSystem getInstance() {
         if (appSystem == null) {
             appSystem = new ApplicationSystem();
@@ -59,6 +60,7 @@ public class ApplicationSystem {
         this.rideAgentDirectory = new RideAgenDirectory();
         this.commuteDirectory = new CommuteDirectory();
         userLoggedIn = false;
+        this.graph = new Graph();
     }
 
     public UserAccountDirectory getUserdirectory() {
@@ -168,6 +170,11 @@ public class ApplicationSystem {
         if (app.getUserdirectory().checkIfExists("admin", "admin")) {
             System.out.print("kjfk");
         }
+    }
+
+    public Graph initalizeGraph()
+    {	graph.addStops();
+    	return graph;
     }
 
 }

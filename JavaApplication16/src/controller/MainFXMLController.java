@@ -169,8 +169,10 @@ public class MainFXMLController implements Initializable {
     }
 
     @FXML
-    private void busButtonClicked(ActionEvent event) {
-
+    private void busButtonClicked(ActionEvent event) throws IOException {
+    	System.out.println("hello");
+        Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/SearchRoutesFXML.fxml"));
+        borderpane.setCenter(loadPane);
     }
 
     @FXML
