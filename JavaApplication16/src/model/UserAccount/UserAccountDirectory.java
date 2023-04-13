@@ -40,9 +40,10 @@ public class UserAccountDirectory {
     }
 
     public boolean checkIfExists(String username, String password) {
-        System.out.println("exists method -- " + username + password);
+//        System.out.println("exists method -- " + username + password);
         if (this.useraccountlist.size() > 0) {
             for (UserAccount user : useraccountlist) {
+                System.out.println("exists method -- " + user.getUsername() + user.getPassword());
                 if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                     return true;
                 }
