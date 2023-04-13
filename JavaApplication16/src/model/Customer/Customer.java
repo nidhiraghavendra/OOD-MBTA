@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.ApplicationSystem.UserProfile.Profile;
+import model.Routes.Location;
+import model.Routes.Route;
 import model.Transaction.RideBooking;
 import model.Transaction.Transaction;
 import model.UserAccount.UserAccount;
@@ -21,6 +23,11 @@ public class Customer {
     UserAccount useraccount;
     ObservableList<Transaction> transactions;
     ObservableList<RideBooking> bookings;
+    private Location source;
+    private Location destination;
+    private Route distance;
+    private double duration;
+    
     
     public Customer() {
         this.useraccount = new UserAccount();
@@ -56,5 +63,14 @@ public class Customer {
         Transaction t = new Transaction();
         this.transactions.add(t);
         return t;
+    }
+    
+    public RideBooking addRideBooking() {
+    	
+	
+		RideBooking rb = new RideBooking();
+    	this.bookings.add(rb);
+		return rb;
+    	
     }
 }

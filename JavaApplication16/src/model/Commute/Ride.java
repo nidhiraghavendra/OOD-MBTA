@@ -85,6 +85,7 @@ public class Ride extends Commute {
                     // duration is twice the distance time in minutes
                     route.setDuration(Double.valueOf(i + j) * 2);
                     // price = 1.2$ per mile
+                   
                     this.route.add(route);
                 } else {
                     matrix[i][j] = "0";

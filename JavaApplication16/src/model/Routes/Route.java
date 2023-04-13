@@ -5,6 +5,7 @@
  */
 package model.Routes;
 
+import model.Transaction.Transaction;
 
 /**
  *
@@ -17,13 +18,15 @@ public class Route {
     private double distance;
     private double duration;
     private Location currentLocation;
-    private Double price;
+    private double price;
+    private Transaction transaction;
     
     public Route() {
         this.ID++;
         this.source = new Location();
         this.destination = new Location();
         this.currentLocation = new Location();
+        this.transaction = new Transaction();
     }
 
     public static int getID() {
@@ -76,13 +79,21 @@ public class Route {
         this.currentLocation = currentLocation;
     }
 
-    public Double getPrice() {
-        return price;
+    public double getPrice() {
+        return this.price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price += distance*1.2;
     }
+
+	public Transaction getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
+	}
     
     
     
