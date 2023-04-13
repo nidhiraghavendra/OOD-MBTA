@@ -11,6 +11,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Announcement.Announcement;
 import model.Commute.CommuteDirectory;
 import model.Commute.Ride;
 import model.Customer.CustomerDirectory;
@@ -40,6 +43,7 @@ public class ApplicationSystem {
     private RideAgenDirectory rideAgentDirectory;
     private CommuteDirectory commuteDirectory;
     private Graph graph;
+    private ObservableList<Announcement> announcementslist;
     public static ApplicationSystem getInstance() {
         if (appSystem == null) {
             appSystem = new ApplicationSystem();
@@ -61,9 +65,18 @@ public class ApplicationSystem {
         this.commuteDirectory = new CommuteDirectory();
         userLoggedIn = false;
         this.graph = new Graph();
+        this.announcementslist = FXCollections.observableArrayList();
     }
 
-    public UserAccountDirectory getUserdirectory() {
+    public ObservableList<Announcement> getAnnouncementslist() {
+		return announcementslist;
+	}
+
+	public void setAnnouncementslist(ObservableList<Announcement> announcementslist) {
+		this.announcementslist = announcementslist;
+	}
+
+	public UserAccountDirectory getUserdirectory() {
         return userdirectory;
     }
 
@@ -175,6 +188,11 @@ public class ApplicationSystem {
     public Graph initalizeGraph()
     {	graph.addStops();
     	return graph;
+    }
+    public void addAnnouncement(Announcement announcement)
+    {
+    	
+    	announcementslist.add(announcement);
     }
 
 }

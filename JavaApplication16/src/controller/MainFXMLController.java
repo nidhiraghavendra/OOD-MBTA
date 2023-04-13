@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 package controller;
-
+import javafx.scene.control.TextInputDialog;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +36,7 @@ import model.Transaction.Transaction;
 import model.UserAccount.UserAccount;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
@@ -49,14 +51,12 @@ public class MainFXMLController implements Initializable {
     Parent root;
     Stage stage;
     private ApplicationSystem app;
-
     @FXML
     private Label welcomeUserField;
     @FXML
     private Label welcomeUserField1;
     @FXML
     private Button accountBtn;
-
     @FXML
     private Button logoutBtn;
 
@@ -96,6 +96,8 @@ public class MainFXMLController implements Initializable {
     private Button rideBtn;
     @FXML
     private Button charlie;
+    @FXML
+    private Button announcebtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -112,11 +114,14 @@ public class MainFXMLController implements Initializable {
             accountBtn.setVisible(false);
             profileBtn.setVisible(true);
             logoutBtn.setVisible(true);
+//            anncebtn.setVisible(false);
 
             if (useraccount.getRole().getRoleType().equals("admin") || useraccount.getRole().getRoleType().equals("mbta")) {
                 userBtn.setVisible(true);
                 profileBtn.setVisible(false);
                 borderpane.getRight().setVisible(false);
+                announcebtn.setVisible(true);
+         
             } else {
                 userBtn.setVisible(false);
                 profileBtn.setVisible(true);
@@ -129,12 +134,13 @@ public class MainFXMLController implements Initializable {
             welcomeUserField.setText("");
             welcomeUserField1.setText("");
             accountBtn.setVisible(true);
+            announcebtn.setVisible(false);
             profileBtn.setVisible(false);
             logoutBtn.setVisible(false);
             userBtn.setVisible(false);
             borderpane.getRight().setStyle("-fx-background-color: #ffff;");
             borderpane.getRight().setVisible(false);
-        }
+        }	
 
     }
 
@@ -299,7 +305,28 @@ public class MainFXMLController implements Initializable {
                 t.setTransactionType("ride pass");
             }
         }
-        user.getRidePass().calculateCardBalance();
+        user.getRidePass().calculateCardBalance();	
         ridepassstatus.setText(user.getRidePass().getCardStatus());
     }
+    @FXML
+    private void announcebtnClicked(ActionEvent event) throws IOException 
+    {
+    	
+    	System.out.println("hello");
+    	TextArea textArea = new TextArea();
+    	
+    	// Set text
+    	textArea.setText("Hello");
+        TextInputDialog td = new TextInputDialog("enter any text");
+        td.setX(100);
+        td.setHeaderText("Enter the announcement");
+        Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./resources/Announcements.fxml"));
+        borderpane.setCenter(loadPane);
+        
+//        Optional<String> result = td.showAndWait();
+//       
+//        System.out.println(result.toString());
+    	
+    }
+
 }
