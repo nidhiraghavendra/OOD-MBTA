@@ -105,6 +105,7 @@
                                     <TableColumn fx:id="tstatus" prefWidth="150.0" text="Status" />
                                 </columns>
                               </TableView>
+                              <Button fx:id="payBtn" layoutX="330.0" layoutY="432.0" mnemonicParsing="false" onAction="#payBtnClicked" prefHeight="40.0" prefWidth="148.0" text="Pay" />
                            </children>
                         </Pane>
                      </children>
