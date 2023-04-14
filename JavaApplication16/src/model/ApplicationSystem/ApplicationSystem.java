@@ -9,8 +9,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Announcement.Announcement;
 import model.Commute.CommuteDirectory;
 import model.Commute.Ride;
 import model.Customer.CustomerDirectory;
@@ -23,6 +28,13 @@ import model.Routes.Location;
 import model.Routes.Route;
 import model.UserAccount.UserAccount;
 import model.UserAccount.UserAccountDirectory;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.util.*;
 
 /**
  *
@@ -40,6 +52,7 @@ public class ApplicationSystem {
     private RideAgenDirectory rideAgentDirectory;
     private CommuteDirectory commuteDirectory;
     private Graph graph;
+    private ObservableList<Announcement> announcementslist;
     public static ApplicationSystem getInstance() {
         if (appSystem == null) {
             appSystem = new ApplicationSystem();
@@ -61,9 +74,19 @@ public class ApplicationSystem {
         this.commuteDirectory = new CommuteDirectory();
         userLoggedIn = false;
         this.graph = new Graph();
+        this.announcementslist = FXCollections.observableArrayList();
+//        read(Paths.get("Objectsavefile.ser"));
     }
 
-    public UserAccountDirectory getUserdirectory() {
+    public ObservableList<Announcement> getAnnouncementslist() {
+		return announcementslist;
+	}
+
+	public void setAnnouncementslist(ObservableList<Announcement> announcementslist) {
+		this.announcementslist = announcementslist;
+	}
+
+	public UserAccountDirectory getUserdirectory() {
         return userdirectory;
     }
 
@@ -170,11 +193,58 @@ public class ApplicationSystem {
         if (app.getUserdirectory().checkIfExists("admin", "admin")) {
             System.out.print("kjfk");
         }
+        
+        
     }
 
     public Graph initalizeGraph()
     {	graph.addStops();
     	return graph;
     }
+    public void addAnnouncement(Announcement announcement)
+    {
+    	
+    	announcementslist.add(announcement);
+    }
+//    public void write(ObservableList<Announcement> personObservalble) {
+//        try {
+//        	
+//            // write object to file
+//        	ArrayList<Announcement> announcmentlist = new ArrayList<>();
+//        	for(int i=0;i<personObservalble.size();i++)
+//        	{
+//        		announcmentlist.add(personObservalble.get(i));	
+//        	}
+//        	 FileOutputStream writeData = new FileOutputStream("peopledata.ser");
+//        	    ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
+//
+//        	    writeStream.writeObject(announcmentlist);
+//        	    writeStream.flush();
+//        	    writeStream.close();
+//
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//    private static ObservableList<Announcement> read() throws IOException, ClassNotFoundException {
+//    	  FileInputStream readData;
+//		try {
+//			readData = new FileInputStream("peopledata.ser");
+//    	    ObjectInputStream readStream = new ObjectInputStream(readData);
+//
+//    	    ArrayList<Announcement> people2 = (ArrayList<Announcement>) readStream.readObject();
+//    	    readStream.close();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//    	   
+//        return FXCollections.emptyObservableList();
+//    }
 
 }

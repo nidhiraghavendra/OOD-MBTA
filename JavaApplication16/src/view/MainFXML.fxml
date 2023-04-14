@@ -18,7 +18,7 @@
    <children>
       <BorderPane fx:id="borderpane" prefHeight="477.0" prefWidth="717.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <FlowPane maxWidth="700.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f3f4;" BorderPane.alignment="CENTER" />
+            <FlowPane fx:id="anncebtn" maxWidth="700.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f3f4;" BorderPane.alignment="CENTER" />
          </center>
          <top>
             <HBox minWidth="-Infinity" prefWidth="1000.0" spacing="10.0" style="-fx-background-color: #001c55;" BorderPane.alignment="CENTER_LEFT">
@@ -68,6 +68,7 @@
                   <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="CHARLIE CARD" textFill="#fcf9f9" />
                   <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="FAQ" textFill="#fcf9f9" />
                   <Button fx:id="userBtn" layoutX="10.0" layoutY="210.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#userBtnClicked" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #001c55; -fx-border-color: #000000;" text="ACCOUNTS" textFill="#fcf9f9" />
+                  <Button fx:id="announcebtn" mnemonicParsing="false" onAction="#announcebtnClicked" prefHeight="26.0" prefWidth="98.0" text="Button" />
                </children>
             </VBox>
          </left>

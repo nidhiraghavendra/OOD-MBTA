@@ -51,9 +51,6 @@ import model.Commute.Ride;
 import model.Routes.Graph;
 
 public class TrainBusRoutesController implements Initializable {
-//	@FXML
-//	private HBox HBoxid;
-
     @FXML
     private AnchorPane paneid;
     @FXML
@@ -76,13 +73,8 @@ public class TrainBusRoutesController implements Initializable {
         List<String> arr = new ArrayList<>(keySet);
         arr.replaceAll(String::toUpperCase);
         ObservableList ObList = FXCollections.observableList(arr);
-//    	ObservableList listOfKeys = (ObservableList) new ArrayList<String>(keySet);
-
         OriginComboBox.setItems(ObList);
         DestinationComboBox.setItems(ObList);
-//    	graph.search(OriginComboBox.getValue().toLowerCase(),DestinationComboBox.getValue().toLowerCase());
-//    	graph.search("ruggles","green street");
-
     }
 
     public void setModel(ApplicationSystem app2) {
@@ -107,8 +99,7 @@ public class TrainBusRoutesController implements Initializable {
             HBox hbox = new HBox();
             pane.getChildren().clear();
             hbox.setPrefWidth(1000);
-            hbox.setPrefHeight(500);
-            hbox.setPadding(new Insets(50, 50, 50, 50));
+            hbox.setPrefHeight(50);
             for (String key : routes.keySet()) {
                 List val = routes.get(key);
                 String busName = key;
@@ -118,7 +109,7 @@ public class TrainBusRoutesController implements Initializable {
                 grid.setHgap(10);
                 grid.setVgap(12);
                 grid.setAlignment(Pos.CENTER);
-                grid.setPrefSize(500, 500);
+                grid.setPrefSize(700, 700);
                 Label label = new Label(busName);
                 if (key.equalsIgnoreCase("Green E")) {
                     label.setTextFill(Color.GREEN);
@@ -134,7 +125,7 @@ public class TrainBusRoutesController implements Initializable {
                 grid.add(label, 0, 0);
                 Text Origin = new Text(OriginComboBox.getValue().toUpperCase());
                 Origin.setFill(Color.BLUE);
-                Origin.setFont(Font.font("Verdana", 15));
+                Origin.setFont(Font.font("Verdana", 10));
                 grid.add(Origin, 1, 0);
 
                 for (int i = 0; i < val.size(); i++) {
@@ -146,7 +137,7 @@ public class TrainBusRoutesController implements Initializable {
                     Text asd = new Text();
                     asd.setText(val.get(i).toString().toUpperCase());
                     asd.setFill(Color.BLUE);
-                    asd.setFont(Font.font("Verdana", 15));
+                    asd.setFont(Font.font("Verdana", 10));
                     grid.add(asd, 1, i + 1);
                     route = route + "-> " + val.get(i).toString().toUpperCase();
                 }
@@ -159,9 +150,8 @@ public class TrainBusRoutesController implements Initializable {
                         + "-fx-border-color: blue;");
                 vbox1.getChildren().add(grid);
                 hbox.getChildren().add(vbox1);
+                VBox.getVgrow(hbox);
                 hbox.setLayoutY(20);
-                System.out.println(route);
-
             }
             pane.getChildren().add(hbox);
 

@@ -4,18 +4,23 @@
  * and open the template in the editor.
  */
 package controller;
-
+import javafx.scene.control.TextInputDialog;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.layout.HBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,7 +31,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javax.annotation.processing.Generated;
 import model.ApplicationSystem.ApplicationSystem;
@@ -35,7 +44,10 @@ import model.Transaction.Transaction;
 import model.UserAccount.UserAccount;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
-
+import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
+import model.Announcement.Announcement;
+import javafx.scene.text.Text;
 /**
  * FXML Controller class
  *
@@ -49,14 +61,12 @@ public class MainFXMLController implements Initializable {
     Parent root;
     Stage stage;
     private ApplicationSystem app;
-
     @FXML
     private Label welcomeUserField;
     @FXML
     private Label welcomeUserField1;
     @FXML
     private Button accountBtn;
-
     @FXML
     private Button logoutBtn;
 
@@ -96,6 +106,8 @@ public class MainFXMLController implements Initializable {
     private Button rideBtn;
     @FXML
     private Button charlie;
+    @FXML
+    private Button announcebtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -112,11 +124,14 @@ public class MainFXMLController implements Initializable {
             accountBtn.setVisible(false);
             profileBtn.setVisible(true);
             logoutBtn.setVisible(true);
+//            anncebtn.setVisible(false);
 
             if (useraccount.getRole().getRoleType().equals("admin") || useraccount.getRole().getRoleType().equals("mbta")) {
                 userBtn.setVisible(true);
                 profileBtn.setVisible(false);
                 borderpane.getRight().setVisible(false);
+                announcebtn.setVisible(true);
+         
             } else {
                 userBtn.setVisible(false);
                 profileBtn.setVisible(true);
@@ -129,13 +144,23 @@ public class MainFXMLController implements Initializable {
             welcomeUserField.setText("");
             welcomeUserField1.setText("");
             accountBtn.setVisible(true);
+            announcebtn.setVisible(true);
             profileBtn.setVisible(false);
             logoutBtn.setVisible(false);
             userBtn.setVisible(false);
             borderpane.getRight().setStyle("-fx-background-color: #ffff;");
             borderpane.getRight().setVisible(false);
-        }
-
+            ListView<String> list = new ListView<>();
+            list.setItems(getArrayList());
+            list.setPrefWidth(500);
+            list.setPrefHeight(500);
+            if(app.getAnnouncementslist().size()!=0)
+            {
+            VBox vbox = getAnnouncements();
+            borderpane.setCenter(getAnnouncements());
+            }
+        }	
+       
     }
 
     @FXML
@@ -147,7 +172,6 @@ public class MainFXMLController implements Initializable {
         Scene scene = new Scene(root, 1000, 1000);
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
@@ -161,6 +185,7 @@ public class MainFXMLController implements Initializable {
         Scene scene = new Scene(root, 1000, 1000);
         stage.setScene(scene);
         stage.show();
+        
     }
 
     @FXML
@@ -299,7 +324,57 @@ public class MainFXMLController implements Initializable {
                 t.setTransactionType("ride pass");
             }
         }
-        user.getRidePass().calculateCardBalance();
+        user.getRidePass().calculateCardBalance();	
         ridepassstatus.setText(user.getRidePass().getCardStatus());
+    }
+    @FXML
+    private void announcebtnClicked(ActionEvent event) throws IOException 
+    {
+    	
+    	System.out.println("hello");
+    	TextArea textArea = new TextArea();
+    	
+    	// Set text
+    	textArea.setText("Hello");
+        TextInputDialog td = new TextInputDialog("enter any text");
+        td.setX(100);
+        td.setHeaderText("Enter the announcement");
+        Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./resources/Announcements.fxml"));
+        borderpane.setCenter(loadPane);
+    }
+    private  ObservableList<String> getArrayList()
+    {
+    	ObservableList<String> announcementlist = FXCollections.observableArrayList();
+    	app.getAnnouncementslist().forEach((i)->{
+    		announcementlist.add(i.getDescription());
+    	});
+    	return announcementlist;
+    }
+    
+    private VBox getAnnouncements()
+    {
+    	VBox vbox = new VBox();
+    	 vbox.setPadding(new Insets(500,500,500,500));
+    	 vbox.setSpacing(25);
+    	 Label ro = new Label("ANNOUNCEMENTS");
+    	 ro.setFont(Font.font("Arial", FontWeight.BOLD,25));
+    	 vbox.getChildren().add(ro);
+    	for(int i=0;i<getArrayList().size();i++)
+    	{ String val = getArrayList().get(i);
+    	  HBox hbox = new HBox(); 
+    		Text label = new Text();
+    		label.setWrappingWidth(1000);
+    		label.setText(i+1+ ". "+ val);
+    		label.setFont(Font.font("Arial", FontWeight.BOLD,16));
+    		hbox.getChildren().add(label);
+    		hbox.setStyle("-fx-border-color: orange;"+ "-fx-border-width: 2;"+"-fx-padding: 10;");
+    		hbox.setMargin(label, new Insets(10,10,10,10));		
+    		vbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+    			        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+    			        + "-fx-border-radius: 5;" + "-fx-border-color: blue;");
+    		hbox.setPrefHeight(25);
+    		vbox.getChildren().add(hbox);
+    	}
+    	return vbox;
     }
 }

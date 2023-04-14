@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="paneid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="885.0" prefWidth="937.0" style="-fx-background-color: aliceblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrainBusRoutesController">
    <children>
-      <Pane layoutY="1.0" prefHeight="534.0" prefWidth="937.0">
+      <Pane layoutY="1.0" prefHeight="265.0" prefWidth="937.0">
          <children>
             <ImageView fitHeight="666.0" fitWidth="944.0" layoutX="-3.0" layoutY="-2.0" pickOnBounds="true">
                <image>

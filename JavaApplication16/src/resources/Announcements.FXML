@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnnouncementController">
+   <children>
+      <TableView fx:id="announcementtable" layoutX="14.0" layoutY="45.0" prefHeight="200.0" prefWidth="582.0">
+        <columns>
+          <TableColumn fx:id="Title" prefWidth="75.0" text="Title" />
+          <TableColumn fx:id="Description" prefWidth="506.0" text="Description" />
+        </columns>
+      </TableView>
+      <Text layoutX="167.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements View" wrappingWidth="222.33673095703125">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Text>
+      <Button fx:id="DeleteBtn" layoutX="300.0" layoutY="267.0" mnemonicParsing="false" onAction="#DeleteBtnClicked" text="Delete" />
+      <Button fx:id="viewButton" layoutX="216.0" layoutY="267.0" mnemonicParsing="false" onAction="#viewButtonClicked" text="View" />
+      <TextArea fx:id="descriptiontextarea" layoutX="12.0" layoutY="463.0" prefHeight="210.0" prefWidth="416.0" />
+      <TextField fx:id="titletext" layoutX="12.0" layoutY="380.0" prefHeight="47.0" prefWidth="256.0" />
+      <Label layoutX="12.0" layoutY="347.0" prefHeight="17.0" prefWidth="50.0" text="Title">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="13.0" layoutY="435.0" prefHeight="17.0" prefWidth="98.0" text="Description">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="99.0" layoutY="312.0" prefHeight="17.0" prefWidth="298.0" text="     Add Announcement">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="submitBtn" layoutX="14.0" layoutY="683.0" mnemonicParsing="false" onAction="#submitBtnClicked" text="Submit" />
+   </children>
+</AnchorPane>
