@@ -88,6 +88,8 @@ public class AnnouncementController implements Initializable {
 	    	announcementtable.setItems(app.getAnnouncementslist());
 	    	titletext.clear();
 	    	descriptiontextarea.clear();
+//	    	app.write(app.getAnnouncementslist());
+	    	
 
 	    }
 	    @FXML
