@@ -23,12 +23,13 @@ import model.Routes.Route;
  * @author Nidhi Raghavendra
  */
 public class CommuteDirectory {
+
     private ArrayList<Train> trains;
     private ArrayList<Bus> buses;
     private ArrayList<Ride> rides;
-    
+
     private ObservableList<Route> allRoutes;
-    
+
     public CommuteDirectory() {
         this.trains = new ArrayList<Train>();
         this.buses = new ArrayList<Bus>();
@@ -72,7 +73,7 @@ public class CommuteDirectory {
                     for (Location location : app.getLocations()) {
                         if (location.getName().equals(matrix[0][j])) {
                             route.setDestination(location);
-                            Location source = app.findALocationByName(matrix[i][0]); 
+                            Location source = app.findALocationByName(matrix[i][0]);
                             route.setSource(source);
                             break;
                         }
@@ -104,7 +105,6 @@ public class CommuteDirectory {
         this.allRoutes = allRoutes;
     }
 
-    
     public ArrayList<Train> getTrains() {
         return trains;
     }
@@ -128,25 +128,63 @@ public class CommuteDirectory {
     public void setRides(ArrayList<Ride> rides) {
         this.rides = rides;
     }
-    
+
     public Bus addBus() {
         Bus bus = new Bus();
         bus.setType("bus");
         this.buses.add(bus);
         return bus;
     }
-    
+
     public Train addTrain() {
         Train train = new Train();
         train.setType("train");
         this.trains.add(train);
         return train;
     }
-    
+
     public Ride addRide() {
         Ride ride = new Ride();
         ride.setType("ride");
         this.rides.add(ride);
         return ride;
+    }
+
+    // assign a ride for the booking
+    public Ride assignARide(Route route) {
+        for (Ride ride : this.rides) {
+            if (ride.getAgent().isAvailable()) {
+                for (Route r : ride.getCommuteRoutes()) {
+                    if (r.getSource().equals(route.getSource()) && r.getDestination().equals(route.getDestination())) {
+                        ride.setBooked(true);
+                        ride.getAgent().setAvailable(false);
+                        return ride;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void releaseRide(Ride ride) {
+        ride.setBooked(false);
+        ride.getAgent().setAvailable(true);
+    }
+
+    public ObservableList<Ride> showAllRides(Location source, Location destination) {
+        ObservableList<Ride> availableRides = FXCollections.observableArrayList();
+        for (Ride ride : this.rides) {
+            for (Route route : ride.getCommuteRoutes()) {
+                if (ride.getAgent().isAvailable()) {
+                    if (route.getSource().equals(source) && route.getDestination().equals(destination)) {
+                        availableRides.add(ride);
+                    }
+                }
+
+            }
+        }
+        
+        return availableRides;
     }
 }

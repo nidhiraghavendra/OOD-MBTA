@@ -104,9 +104,11 @@ public abstract class Card {
         }
         if (this.cardBalance >= 0.0) {
             this.cardBalance -= amount;
+            this.cardBalance = Math.round(this.cardBalance*100.0)/100.0;
             return true;
         } else if(this.cardBalance < 0.0 && this.cardBalance > this.lowerLimit && this.cardBalance-amount >= this.lowerLimit) {
             this.cardBalance -= amount;
+            this.cardBalance = Math.round(this.cardBalance*100.0)/100.0;
             return true;
         } 
                 

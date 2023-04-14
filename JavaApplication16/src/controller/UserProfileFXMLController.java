@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ApplicationSystem.ApplicationSystem;
 import model.ApplicationSystem.Validation;
+import model.Card.RidePass;
 import model.Customer.Customer;
 import model.Transaction.CardValidation;
 import model.Transaction.Transaction;
@@ -81,6 +82,9 @@ public class UserProfileFXMLController implements Initializable {
 
     @FXML
     private Button rechargeBtn;
+    
+    @FXML
+    private Button payBtn;
 
     @FXML
     private TextField amount;
@@ -145,7 +149,7 @@ public class UserProfileFXMLController implements Initializable {
         String fullName = name.getText();
         Validation validate = new Validation();
         try {
-            if (validate.validateName(fullName)) {
+            if (!validate.validateName(fullName)) {
                 String cardNumber = cardnumber.getText();
                 CardValidation cardValid = new CardValidation();
 
@@ -207,6 +211,22 @@ public class UserProfileFXMLController implements Initializable {
         ObservableList<Transaction> items = this.customer.getTransactions();
         if(items != null || items.size() > 0) {
             tranTable.setItems(items);
+        }
+    }
+    
+    @FXML
+    public void payBtnClicked(Event e) {
+        Transaction t = tranTable.getSelectionModel().getSelectedItem();
+        UserAccount user = this.app.getLoggedInUserAccount();
+        RidePass pass = user.getRidePass();
+        
+        boolean b = pass.deductAmount(t.getAmount());
+        if(b) {
+            t.setStatus("Paid");
+            tranTable.setItems(this.customer.getTransactions());
+        } else {
+            t.setStatus("Failed");
+            displayAlert("Insufficient balance to make the payment.");
         }
     }
 }

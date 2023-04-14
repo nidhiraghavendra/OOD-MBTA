@@ -28,7 +28,6 @@ import model.Routes.Route;
  */
 public class Ride extends Commute {
 
-    private static int capacity;
     private boolean isBooked;
     private RideAgent agent;
     private ObservableList<Route> route;
@@ -85,6 +84,7 @@ public class Ride extends Commute {
                     // duration is twice the distance time in minutes
                     route.setDuration(Double.valueOf(i + j) * 2);
                     // price = 1.2$ per mile
+                   
                     this.route.add(route);
                 } else {
                     matrix[i][j] = "0";
@@ -112,14 +112,6 @@ public class Ride extends Commute {
         this.route = route;
     }
 
-    public static int getCapacity() {
-        return capacity;
-    }
-
-    public static void setCapacity(int capacity) {
-        Ride.capacity = capacity;
-    }
-
     public boolean isBooked() {
         return isBooked;
     }
@@ -145,4 +137,8 @@ public class Ride extends Commute {
         }
     }
 
+    @Override
+    public String toString() {
+        return this.agent.getUseraccount().getName();
+    }
 }
