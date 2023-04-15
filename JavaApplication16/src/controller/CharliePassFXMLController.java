@@ -51,12 +51,7 @@ public class CharliePassFXMLController implements Initializable {
         // TODO
         this.app = ApplicationSystem.getInstance();
         UserAccount useraccount = this.app.getLoggedInUserAccount();
-        if (useraccount != null) {
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(CharliePassFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (this.app.isUserLoggedIn()) {
             displayCard(useraccount);
         }
     }

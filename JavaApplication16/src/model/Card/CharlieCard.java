@@ -12,7 +12,7 @@ package model.Card;
 public class CharlieCard extends Card {
 
     public CharlieCard() {
-
+        super();
     }
 
     @Override

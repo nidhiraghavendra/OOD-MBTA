@@ -12,7 +12,7 @@ package model.Card;
 public class RidePass extends Card{
 
     public RidePass() {
-        
+        super();
     }
 
     @Override

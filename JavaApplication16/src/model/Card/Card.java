@@ -114,4 +114,14 @@ public abstract class Card {
                 
         return false;
     }
+
+    public double getPassFee() {
+        return passFee;
+    }
+
+    public void setPassFee(double passFee) {
+        this.passFee = passFee;
+    }
+    
+    
 }
