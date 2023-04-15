@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package controller;
+
 import javafx.scene.control.TextInputDialog;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,10 +18,12 @@ import javafx.scene.layout.HBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,8 +49,19 @@ import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.FlowPane;
 import model.Announcement.Announcement;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import model.Card.CharlieCard;
+import model.Card.RidePass;
+
 /**
  * FXML Controller class
  *
@@ -108,7 +122,12 @@ public class MainFXMLController implements Initializable {
     private Button charlie;
     @FXML
     private Button announcebtn;
-
+    @FXML
+    private Button faqBtn;
+    
+    @FXML
+    private Pane centerpane;
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -131,10 +150,11 @@ public class MainFXMLController implements Initializable {
                 profileBtn.setVisible(false);
                 borderpane.getRight().setVisible(false);
                 announcebtn.setVisible(true);
-         
+
             } else {
                 userBtn.setVisible(false);
                 profileBtn.setVisible(true);
+                announcebtn.setVisible(false);
                 // SHOW QR CODE
                 displayCard(useraccount);
                 borderpane.getRight().setVisible(true);
@@ -144,7 +164,7 @@ public class MainFXMLController implements Initializable {
             welcomeUserField.setText("");
             welcomeUserField1.setText("");
             accountBtn.setVisible(true);
-            announcebtn.setVisible(true);
+            announcebtn.setVisible(false);
             profileBtn.setVisible(false);
             logoutBtn.setVisible(false);
             userBtn.setVisible(false);
@@ -154,13 +174,17 @@ public class MainFXMLController implements Initializable {
             list.setItems(getArrayList());
             list.setPrefWidth(500);
             list.setPrefHeight(500);
-            if(app.getAnnouncementslist().size()!=0)
-            {
+        }
+        
+        if (app.getAnnouncementslist().size() != 0) {
             VBox vbox = getAnnouncements();
-            borderpane.setCenter(getAnnouncements());
-            }
-        }	
-       
+            BackgroundImage bi = new BackgroundImage(new Image("train.jpg", 1200, 3000, true, true),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT);
+            centerpane.setBackground(new Background(bi));
+            centerpane.getChildren().add(vbox);
+        }
+
     }
 
     @FXML
@@ -185,17 +209,18 @@ public class MainFXMLController implements Initializable {
         Scene scene = new Scene(root, 1000, 1000);
         stage.setScene(scene);
         stage.show();
-        
+
     }
 
     @FXML
-    private void trainButtonClicked(ActionEvent event) {
-
+    private void trainButtonClicked(ActionEvent event) throws IOException {
+        Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/SearchRoutesFXML.fxml"));
+        borderpane.setCenter(loadPane);
     }
 
     @FXML
     private void busButtonClicked(ActionEvent event) throws IOException {
-    	System.out.println("hello");
+        System.out.println("hello");
         Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/SearchRoutesFXML.fxml"));
         borderpane.setCenter(loadPane);
     }
@@ -324,57 +349,85 @@ public class MainFXMLController implements Initializable {
                 t.setTransactionType("ride pass");
             }
         }
-        user.getRidePass().calculateCardBalance();	
+        user.getRidePass().calculateCardBalance();
         ridepassstatus.setText(user.getRidePass().getCardStatus());
     }
+
     @FXML
-    private void announcebtnClicked(ActionEvent event) throws IOException 
-    {
-    	
-    	System.out.println("hello");
-    	TextArea textArea = new TextArea();
-    	
-    	// Set text
-    	textArea.setText("Hello");
+    private void announcebtnClicked(ActionEvent event) throws IOException {
+
+        System.out.println("hello");
+        TextArea textArea = new TextArea();
+
+        // Set text
+        textArea.setText("Hello");
         TextInputDialog td = new TextInputDialog("enter any text");
         td.setX(100);
         td.setHeaderText("Enter the announcement");
         Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./resources/Announcements.fxml"));
         borderpane.setCenter(loadPane);
     }
-    private  ObservableList<String> getArrayList()
-    {
-    	ObservableList<String> announcementlist = FXCollections.observableArrayList();
-    	app.getAnnouncementslist().forEach((i)->{
-    		announcementlist.add(i.getDescription());
-    	});
-    	return announcementlist;
+
+    private ObservableList<String> getArrayList() {
+        ObservableList<String> announcementlist = FXCollections.observableArrayList();
+        app.getAnnouncementslist().forEach((i) -> {
+            announcementlist.add(i.getDescription());
+        });
+        return announcementlist;
+    }
+
+    @FXML
+    private void faqBtnClicked(ActionEvent e) {
+        VBox vbox = getAnnouncements();
+        borderpane.setCenter(getAnnouncements());
+    }
+
+    private VBox getAnnouncements() {
+        VBox vbox = new VBox();
+        vbox.setPadding(new Insets(500, 500, 500, 500));
+        vbox.setSpacing(25);
+        vbox.setAlignment(Pos.CENTER);
+        
+        Label ro = new Label("ANNOUNCEMENTS");
+        ro.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+        vbox.getChildren().add(ro);
+        vbox.setMaxHeight(500.0);
+        for (int i = 0; i < getArrayList().size(); i++) {
+            String val = getArrayList().get(i);
+            HBox hbox = new HBox();
+            Text label = new Text();
+            label.setWrappingWidth(1000);
+            label.setText(i + 1 + ". " + val);
+            label.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+            hbox.getChildren().add(label);
+            hbox.setStyle("-fx-border-color: orange; -fx-background-color: #f9c784;" + "-fx-border-width: 2;" + "-fx-padding: 10;");
+            hbox.setMargin(label, new Insets(10, 10, 10, 10));
+            vbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+                    + "-fx-border-radius: 5;" + "-fx-margin-top: 50;");
+            hbox.setPrefHeight(25);
+            vbox.setMargin(vbox, new Insets(100, 100, 100, 100));
+            vbox.getChildren().add(hbox);
+        }
+        return vbox;
     }
     
-    private VBox getAnnouncements()
-    {
-    	VBox vbox = new VBox();
-    	 vbox.setPadding(new Insets(500,500,500,500));
-    	 vbox.setSpacing(25);
-    	 Label ro = new Label("ANNOUNCEMENTS");
-    	 ro.setFont(Font.font("Arial", FontWeight.BOLD,25));
-    	 vbox.getChildren().add(ro);
-    	for(int i=0;i<getArrayList().size();i++)
-    	{ String val = getArrayList().get(i);
-    	  HBox hbox = new HBox(); 
-    		Text label = new Text();
-    		label.setWrappingWidth(1000);
-    		label.setText(i+1+ ". "+ val);
-    		label.setFont(Font.font("Arial", FontWeight.BOLD,16));
-    		hbox.getChildren().add(label);
-    		hbox.setStyle("-fx-border-color: orange;"+ "-fx-border-width: 2;"+"-fx-padding: 10;");
-    		hbox.setMargin(label, new Insets(10,10,10,10));		
-    		vbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-    			        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
-    			        + "-fx-border-radius: 5;" + "-fx-border-color: blue;");
-    		hbox.setPrefHeight(25);
-    		vbox.getChildren().add(hbox);
-    	}
-    	return vbox;
+    public VBox getCards() {
+        VBox vbox = new VBox();
+        vbox.setSpacing(25);
+        Label ro = new Label("Fares");
+        ro.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+        vbox.getChildren().add(ro);
+        vbox.setMaxHeight(500.0);
+        
+        HBox hbox = new HBox();
+        Text label = new Text();
+        label.setText("Charlie Card Fare");
+        Text label2 = new Text();
+        label2.setText(String.valueOf(new CharlieCard().passFee));
+        hbox.getChildren().addAll(label, label2);
+        vbox.getChildren().add(hbox);
+        return vbox;
     }
+            
 }

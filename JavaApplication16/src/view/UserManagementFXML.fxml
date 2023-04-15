@@ -60,12 +60,13 @@
                               <TableColumn fx:id="colNameR" prefWidth="120.0" text="Name" />
                            </columns>
                         </TableView>
-                        <Button fx:id="addBtn" layoutX="629.0" layoutY="300.0" mnemonicParsing="false" onAction="#addBtnClicked" text="ADD AGENT" />
+                        <Button fx:id="addBtn" layoutX="629.0" layoutY="323.0" mnemonicParsing="false" onAction="#addBtnClicked" text="ADD AGENT" />
                         <TextField fx:id="fieldEmail" layoutX="586.0" layoutY="68.0" text="email" />
                         <TextField fx:id="fieldName" layoutX="586.0" layoutY="111.0" text="name" />
                         <TextField fx:id="license" layoutX="586.0" layoutY="154.0" text="license no." />
-                        <TextField fx:id="brand" layoutX="586.0" layoutY="200.0" text="Plate" />
-                        <DatePicker fx:id="picker" layoutX="574.0" layoutY="246.0" />
+                        <TextField fx:id="plate" layoutX="586.0" layoutY="200.0" text="Plate" />
+                        <DatePicker fx:id="picker" layoutX="574.0" layoutY="282.0" />
+                        <TextField fx:id="brand" layoutX="586.0" layoutY="242.0" text="Brand" />
                      </children>
                   </AnchorPane>
               </content>

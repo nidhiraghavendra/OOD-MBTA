@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package model.ApplicationSystem;
+
 import model.Routes.Graph;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -53,6 +54,7 @@ public class ApplicationSystem {
     private CommuteDirectory commuteDirectory;
     private Graph graph;
     private ObservableList<Announcement> announcementslist;
+
     public static ApplicationSystem getInstance() {
         if (appSystem == null) {
             appSystem = new ApplicationSystem();
@@ -75,18 +77,20 @@ public class ApplicationSystem {
         userLoggedIn = false;
         this.graph = new Graph();
         this.announcementslist = FXCollections.observableArrayList();
+        
+        populateAnnouncement();
 //        read(Paths.get("Objectsavefile.ser"));
     }
 
     public ObservableList<Announcement> getAnnouncementslist() {
-		return announcementslist;
-	}
+        return announcementslist;
+    }
 
-	public void setAnnouncementslist(ObservableList<Announcement> announcementslist) {
-		this.announcementslist = announcementslist;
-	}
+    public void setAnnouncementslist(ObservableList<Announcement> announcementslist) {
+        this.announcementslist = announcementslist;
+    }
 
-	public UserAccountDirectory getUserdirectory() {
+    public UserAccountDirectory getUserdirectory() {
         return userdirectory;
     }
 
@@ -149,17 +153,17 @@ public class ApplicationSystem {
     public void setCommuteDirectory(CommuteDirectory commuteDirectory) {
         this.commuteDirectory = commuteDirectory;
     }
-    
+
     public Location findALocationByName(String name) {
-        for(Location l: this.locations) {
-            if(l.getName().equals(name)) {
+        for (Location l : this.locations) {
+            if (l.getName().equals(name)) {
                 return l;
             }
         }
-        
+
         return null;
     }
-    
+
     public void populateRides() {
         System.out.println("Inside populate rides ::::::::::::::::::::::" + this.rideAgentDirectory.getAgentlist().size());
 
@@ -193,58 +197,21 @@ public class ApplicationSystem {
         if (app.getUserdirectory().checkIfExists("admin", "admin")) {
             System.out.print("kjfk");
         }
-        
-        
+
     }
 
-    public Graph initalizeGraph()
-    {	graph.addStops();
-    	return graph;
+    public Graph initalizeGraph() {
+        graph.addStops();
+        return graph;
     }
-    public void addAnnouncement(Announcement announcement)
-    {
-    	
-    	announcementslist.add(announcement);
-    }
-//    public void write(ObservableList<Announcement> personObservalble) {
-//        try {
-//        	
-//            // write object to file
-//        	ArrayList<Announcement> announcmentlist = new ArrayList<>();
-//        	for(int i=0;i<personObservalble.size();i++)
-//        	{
-//        		announcmentlist.add(personObservalble.get(i));	
-//        	}
-//        	 FileOutputStream writeData = new FileOutputStream("peopledata.ser");
-//        	    ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
-//
-//        	    writeStream.writeObject(announcmentlist);
-//        	    writeStream.flush();
-//        	    writeStream.close();
-//
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//    private static ObservableList<Announcement> read() throws IOException, ClassNotFoundException {
-//    	  FileInputStream readData;
-//		try {
-//			readData = new FileInputStream("peopledata.ser");
-//    	    ObjectInputStream readStream = new ObjectInputStream(readData);
-//
-//    	    ArrayList<Announcement> people2 = (ArrayList<Announcement>) readStream.readObject();
-//    	    readStream.close();
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//    	   
-//        return FXCollections.emptyObservableList();
-//    }
 
+    public void addAnnouncement(Announcement announcement) {
+
+        announcementslist.add(announcement);
+    }
+
+    public void populateAnnouncement() {
+        Announcement a = new Announcement("Welcome to MBTA portal", "MBTA Pass Programs deliver flexibility and convenience for institutions and large groups using the T. MBTA Pass Programs can help seasoned commuters and students alike access the transit system with ease");
+        this.addAnnouncement(a);
+    }
 }

@@ -132,7 +132,8 @@ public class UserManagementFXMLController implements Initializable {
     TextField license;
     @FXML
     TextField brand;
-
+    @FXML
+    TextField plate;
     @FXML
     DatePicker picker;
 
@@ -204,6 +205,7 @@ public class UserManagementFXMLController implements Initializable {
 
         rideTableView.setItems(items);
     }
+
     @FXML
     private void transactionTabClicked(Event e) {
 
@@ -245,6 +247,7 @@ public class UserManagementFXMLController implements Initializable {
         String email = fieldEmail.getText();
         String name = fieldName.getText();
         String l = license.getText();
+        String p = plate.getText();
         String b = brand.getText();
         LocalDate date = picker.getValue();
 
@@ -253,7 +256,7 @@ public class UserManagementFXMLController implements Initializable {
 
         if (validate.validateEmail(email)) {
             v = false;
-            displayAlert("Invalid email address"); 
+            displayAlert("Invalid email address");
         }
         if (validate.validateName(name)) {
             v = false;
@@ -263,20 +266,26 @@ public class UserManagementFXMLController implements Initializable {
             v = false;
             displayAlert("Invalid DL");
         }
-        if (validate.validatePlate(b)) {
+        if (validate.validatePlate(p)) {
             v = false;
             displayAlert("Invalid Vehicle Plate No.");
         }
         if (v) {
-            RideAgent ride = app.getRideAgentDirectory().createRideAgent();
-            ride.getUseraccount().setEmail(email);
-            ride.getUseraccount().setName(name);
-            ride.getUseraccount().setRoleType("agent");
-            ride.getUseraccount().setUsername(name);
-            ride.setLicense(l);
-            ride.getVehicle().setCarBrand(b);
 
-            app.getUserdirectory().getUseraccountlist().add(ride.getUseraccount());
+            if (app.getRideAgentDirectory().findAgent(email, l, name)) {
+                displayAlert("A rider with these credentials already exists");
+            } else {
+                RideAgent ride = app.getRideAgentDirectory().createRideAgent();
+                ride.getUseraccount().setEmail(email);
+                ride.getUseraccount().setName(name);
+                ride.getUseraccount().setRoleType("agent");
+                ride.getUseraccount().setUsername(name);
+                ride.setLicense(l);
+                ride.getVehicle().setCarBrand(b);
+                ride.getVehicle().setNumberPlate(p);
+
+                app.getUserdirectory().getUseraccountlist().add(ride.getUseraccount());
+            }
         }
         populateRideAgent();
     }
