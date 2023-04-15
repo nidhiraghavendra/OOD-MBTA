@@ -54,21 +54,6 @@ public class AnnouncementController implements Initializable {
 	    @FXML
 	    private void submitBtnClicked(ActionEvent event) throws IOException
 	    {
-////	        Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./resources/AddAnnouncement.fxml"));
-//	        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("./resources/AddAnnouncement.fxml"));
-//	        root = loader.load();
-//	        //((MainFXMLController)loader.getController()).setModel(this.app);
-//	        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//	        Scene scene = new Scene(root, 1000, 1000);
-//	        stage.setScene(scene);
-//	        stage.show();
-//	        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("./resources/MainFXML.fxml"));
-//	        root = loader.load();
-//	        //((MainFXMLController)loader.getController()).setModel(this.app);
-//	        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//	        Scene scene = new Scene(root, 1000, 1000);
-//	        stage.setScene(scene);
-//	        stage.show();
 	    	if(titletext.getText().isEmpty() ||titletext.getText() == null || descriptiontextarea.getText().isEmpty() ||descriptiontextarea.getText() == null )
 	    	{
 	     	   a.setAlertType(AlertType.WARNING);
@@ -88,7 +73,6 @@ public class AnnouncementController implements Initializable {
 	    	announcementtable.setItems(app.getAnnouncementslist());
 	    	titletext.clear();
 	    	descriptiontextarea.clear();
-//	    	app.write(app.getAnnouncementslist());
 	    	
 
 	    }
@@ -97,12 +81,15 @@ public class AnnouncementController implements Initializable {
 	    {
 	    	announcementtable.getItems().removeAll(announcementtable.getSelectionModel());
 	    	int index = announcementtable.getSelectionModel().getFocusedIndex();
+	    	if(index>-1)
+	    	{
 	    	app.getAnnouncementslist().remove(0);
 	     	   a.setAlertType(AlertType.INFORMATION);
 	    	   a.setContentText("The announcement has been successfully deleted");
 	    	   a.show();
 //	    	   app.getAnnouncementslist().remove(index+1);
-	    	   announcementtable.setItems(app.getAnnouncementslist());   
+	    	   announcementtable.setItems(app.getAnnouncementslist()); 
+	    	}
 	    }
 	    @FXML
 	    private void viewButtonClicked(ActionEvent event)
