@@ -170,6 +170,7 @@ public class LoginFXMLController implements Initializable {
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
             Scene scene = new Scene(root, 1000, 1000);
             stage.setScene(scene);
+            stage.setMaximized(true);
             stage.show();
         } else {
             displayAlert("Invalid credentials!");

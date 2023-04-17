@@ -1,5 +1,4 @@
 package model.Routes;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -14,13 +13,13 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
- class Stop {
-	 String name;
-	 ArrayList<Combination> routestop = new ArrayList<>(); // List with Bus Name and its next Stop 
-	 Stop(String name)
-	 {this.name = name;
-	 }
-}
+// public class Stop {
+//	 String name;
+//	 ArrayList<Combination> routestop = new ArrayList<>(); // List with Bus Name and its next Stop 
+//	 Stop(String name)
+//	 {this.name = name;
+//	 }
+//}
 class Combination
 {
 	String busName;
@@ -150,7 +149,11 @@ public void addStops()
 		    	middleStop = getStop(nextStop,busName,i);
 		    if(middleStop!= null)
 		    {
-		    passedStations.add(middleStop.name);
+		    	if(middleStop.isActive)
+		    	{
+		    	passedStations.add(middleStop.name);
+		    		}
+//		    passedStations.add(middleStop.name);
 	    	nextStop = middleStop;
 		    if((nextStop.name).equalsIgnoreCase( destinationstop.name))
 		    { 
@@ -191,5 +194,26 @@ public void addStops()
 			}
 		
 		return nextStop;
+	}
+	public HashMap<String,String> getStationInfo(Stop getstop)
+	{
+		HashMap<String, String> map = new HashMap<>();
+		adjVertices.get(getstop);
+		List<Combination> combinations = adjVertices.get(getstop);
+		for(Combination v : combinations)
+		{
+			if(v.busName!=null)
+			{
+				if(v.nextStop!=null)
+				{
+					map.put(v.busName, v.nextStop.name);
+				}
+				if(v.prevStop!=null)
+				{
+					map.put(v.busName,v.prevStop.name);
+				}
+			}
+		}
+		return map;
 	}
 }

@@ -124,7 +124,8 @@ public class MainFXMLController implements Initializable {
     private Button announcebtn;
     @FXML
     private Button faqBtn;
-    
+    @FXML
+    private Button Stationsbtn;
     @FXML
     private Pane centerpane;
    
@@ -132,6 +133,7 @@ public class MainFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         app = ApplicationSystem.getInstance();
+        
         System.out.println("ONCE -- ");
         if (app.isUserLoggedIn()) {
             System.out.println("Present -- ");
@@ -150,11 +152,13 @@ public class MainFXMLController implements Initializable {
                 profileBtn.setVisible(false);
                 borderpane.getRight().setVisible(false);
                 announcebtn.setVisible(true);
+                Stationsbtn.setVisible(true);
 
             } else {
                 userBtn.setVisible(false);
                 profileBtn.setVisible(true);
                 announcebtn.setVisible(false);
+                
                 // SHOW QR CODE
                 displayCard(useraccount);
                 borderpane.getRight().setVisible(true);
@@ -168,6 +172,7 @@ public class MainFXMLController implements Initializable {
             profileBtn.setVisible(false);
             logoutBtn.setVisible(false);
             userBtn.setVisible(false);
+            Stationsbtn.setVisible(false);
             borderpane.getRight().setStyle("-fx-background-color: #ffff;");
             borderpane.getRight().setVisible(false);
             ListView<String> list = new ListView<>();
@@ -178,11 +183,13 @@ public class MainFXMLController implements Initializable {
         
         if (app.getAnnouncementslist().size() != 0) {
             VBox vbox = getAnnouncements();
-            BackgroundImage bi = new BackgroundImage(new Image("train.jpg", 1200, 3000, true, true),
+            BackgroundImage bi = new BackgroundImage(new Image("train.jpg", 1200, 5000, true, true),
                     BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                     BackgroundSize.DEFAULT);
+           
             centerpane.setBackground(new Background(bi));
             centerpane.getChildren().add(vbox);
+//            centerpane.setStyle("-fx-background-size: cover;");
         }
 
     }
@@ -194,6 +201,7 @@ public class MainFXMLController implements Initializable {
         ((LoginFXMLController) loader.getController()).setModel(this.app);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 1000);
+        stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
     }
@@ -207,8 +215,10 @@ public class MainFXMLController implements Initializable {
         //((MainFXMLController)loader.getController()).setModel(this.app);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 1000);
+        stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
+        
 
     }
 
@@ -216,6 +226,7 @@ public class MainFXMLController implements Initializable {
     private void trainButtonClicked(ActionEvent event) throws IOException {
         Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/SearchRoutesFXML.fxml"));
         borderpane.setCenter(loadPane);
+       
     }
 
     @FXML
@@ -367,7 +378,14 @@ public class MainFXMLController implements Initializable {
         Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./resources/Announcements.fxml"));
         borderpane.setCenter(loadPane);
     }
-
+    @FXML
+    private void Stationsbtnclicked(ActionEvent event) throws IOException
+    {
+    	System.out.println("AAAAAAAAAAAA");
+        Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/Stations.fxml"));
+        borderpane.setCenter(loadPane);
+    }
+    
     private ObservableList<String> getArrayList() {
         ObservableList<String> announcementlist = FXCollections.observableArrayList();
         app.getAnnouncementslist().forEach((i) -> {
@@ -389,14 +407,16 @@ public class MainFXMLController implements Initializable {
         vbox.setAlignment(Pos.CENTER);
         
         Label ro = new Label("ANNOUNCEMENTS");
-        ro.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+        ro.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+        ro.setStyle("-fx-background-color: aliceblue");
         vbox.getChildren().add(ro);
         vbox.setMaxHeight(500.0);
+        
         for (int i = 0; i < getArrayList().size(); i++) {
             String val = getArrayList().get(i);
             HBox hbox = new HBox();
             Text label = new Text();
-            label.setWrappingWidth(1000);
+            label.setWrappingWidth(800);
             label.setText(i + 1 + ". " + val);
             label.setFont(Font.font("Arial", FontWeight.BOLD, 16));
             hbox.getChildren().add(label);
