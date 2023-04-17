@@ -18,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -80,6 +81,15 @@ public class RideFXMLController implements Initializable {
     @FXML
     private Button markBtn;
 
+    @FXML
+    private ComboBox<Location> sourcebox;
+
+    @FXML
+    private ComboBox<Location> destinationbox;
+
+    @FXML
+    private Button searchbtn;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         // TODO Auto-generated method stub
@@ -93,6 +103,7 @@ public class RideFXMLController implements Initializable {
 //        ride = this.app.getUserdirectory().getUseraccountlist();
 //        System.out.println("In User management controller :: " + app.getCustomerDirectory().getCustomerlist().size());
         populateTable();
+        populateDp();
     }
 
     private void populateTable() {
@@ -103,6 +114,7 @@ public class RideFXMLController implements Initializable {
         colDistance.setCellValueFactory(new PropertyValueFactory<>("distance"));
         colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         ObservableList<Route> items = app.getCommuteDirectory().getAllRoutes();
+        rideTableView.getItems().clear();
         rideTableView.setItems(items);
 
         sourceHistoryCol.setCellValueFactory(new PropertyValueFactory<>("source"));
@@ -184,5 +196,38 @@ public class RideFXMLController implements Initializable {
         UserAccount user = this.app.getLoggedInUserAccount();
         Customer customer = this.app.getCustomerDirectory().findACustomer(user);
         rideHistoryTableView.setItems(customer.getBookings());
+    }
+
+    private void populateDp() {
+        ArrayList<Location> locations = this.app.getLocations();
+        ObservableList<Location> items = FXCollections.observableArrayList(locations);
+
+        sourcebox.getItems().clear();
+        sourcebox.setItems(items);
+        destinationbox.getItems().clear();
+        destinationbox.setItems(items);
+    }
+
+    @FXML
+    private void clicked(ActionEvent event) {
+        rideTableView.getItems().clear();
+        Location source = sourcebox.getSelectionModel().getSelectedItem();
+        Location destination = destinationbox.getSelectionModel().getSelectedItem();
+        ObservableList<Route> results = FXCollections.observableArrayList();
+        if (!source.getName().equals(destination.getName())) {
+            for (Route r : this.app.getCommuteDirectory().getAllRoutes()) {
+                if (r.getSource().equals(source) && r.getDestination().equals(destination)) {
+                    results.add(r);
+                    break;
+                }
+            }
+
+            rideTableView.setItems(results);
+        }
+    }
+
+    @FXML
+    private void rideclicked(Event evn) {
+        populateTable();
     }
 }
