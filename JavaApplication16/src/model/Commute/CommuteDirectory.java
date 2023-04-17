@@ -38,11 +38,11 @@ public class CommuteDirectory {
     }
 
     public ObservableList<Route> getAllRoutes() {
-        String[][] matrix = new String[16][16];
+        String[][] matrix = new String[17][17];
         String line = "";
         try {
             BufferedReader reader = new BufferedReader(new FileReader("locationsData"));
-            int i = 0;
+            int i = 1;
             while ((line = reader.readLine()) != null) {
 
                 matrix[i][0] = line;
@@ -56,32 +56,21 @@ public class CommuteDirectory {
         } catch (IOException ex) {
             Logger.getLogger(Ride.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        ApplicationSystem app = ApplicationSystem.getInstance();
         for (int i = 1; i < matrix.length; i++) {
             for (int j = 1; j < matrix[i].length; j++) {
-                if (i != j) {
-                    matrix[i][j] = String.valueOf(i + j);
-
+                if (matrix[i][0] != matrix[0][j]) {
+                    matrix[i][j] = String.valueOf(Math.abs(j - i)+1);
                     Route route = new Route();
-                    ApplicationSystem app = ApplicationSystem.getInstance();
-                    try {
-                        app.populateLocations();
-                    } catch (IOException ex) {
-                        Logger.getLogger(Ride.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    Location source = app.findALocationByName(matrix[i][0]);
+                    route.setSource(source);
+                    Location location = app.findALocationByName(matrix[0][j]);
+                    route.setDestination(location);
 
-                    for (Location location : app.getLocations()) {
-                        if (location.getName().equals(matrix[0][j])) {
-                            route.setDestination(location);
-                            Location source = app.findALocationByName(matrix[i][0]);
-                            route.setSource(source);
-                            break;
-                        }
-                    }
                     // duration is calculated at random
-                    route.setDistance(Double.valueOf(i + j));
+                    route.setDistance(Double.valueOf(Math.abs(j - i) + 1));
                     // duration is twice the distance time in minutes
-                    route.setDuration(Double.valueOf(i + j) * 2);
+                    route.setDuration(Double.valueOf(Math.abs(j - i) + 1) * 2);
                     // price = 1.2$ per mile
                     this.allRoutes.add(route);
                 } else {
@@ -184,7 +173,7 @@ public class CommuteDirectory {
 
             }
         }
-        
+
         return availableRides;
     }
 }

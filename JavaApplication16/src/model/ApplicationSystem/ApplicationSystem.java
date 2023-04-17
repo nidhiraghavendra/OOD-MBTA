@@ -36,6 +36,8 @@ import java.nio.file.Paths;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -79,7 +81,12 @@ public class ApplicationSystem {
         this.announcementslist = FXCollections.observableArrayList();
         
         populateAnnouncement();
+        try {
+            populateLocations();
 //        read(Paths.get("Objectsavefile.ser"));
+        } catch (IOException ex) {
+            Logger.getLogger(ApplicationSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public ObservableList<Announcement> getAnnouncementslist() {
