@@ -37,6 +37,7 @@ public class NewFXMain extends Application {
 
             primaryStage.setTitle("MBTA Portal");
             primaryStage.setScene(scene);
+            primaryStage.setMaximized(true);
             primaryStage.show();
         } catch (IOException ex) {
            ex.printStackTrace();

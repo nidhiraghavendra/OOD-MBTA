@@ -18,15 +18,24 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Announcement.Announcement;
 import model.ApplicationSystem.ApplicationSystem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 public class AnnouncementController implements Initializable {
     Parent root;
     Stage stage;
     private ApplicationSystem app;
+    @FXML
+    private AnchorPane anchorpane;
     @FXML
     private Button submitBtn;
     @FXML
@@ -49,6 +58,9 @@ public class AnnouncementController implements Initializable {
 		 Description.setCellValueFactory(new PropertyValueFactory<Announcement, String>("description"));
 		System.out.println(app.getAnnouncementslist().size());
 		 announcementtable.setItems(app.getAnnouncementslist());
+         
+        
+
 		 
 	    }
 	    @FXML
