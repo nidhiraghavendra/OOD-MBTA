@@ -102,10 +102,17 @@ public class TrainBusRoutesController implements Initializable {
         	if(stoplookup.get(Destination.toLowerCase()).isActive() && stoplookup.get(origin.toLowerCase()).isActive())
         	{
             HashMap<String, List<String>> routes = graph.search(OriginComboBox.getValue().toLowerCase(), DestinationComboBox.getValue().toLowerCase());
+            if(routes.size()==0)
+            {
+            	  a.setAlertType(AlertType.WARNING);
+                  a.setContentText("No Routes found between these stations");
+                  a.show();
+            }
             HBox hbox = new HBox();
             pane.getChildren().clear();
             hbox.setPrefWidth(1000);
             hbox.setPrefHeight(50);
+//            hbox.getChildren().add(new Text("$ 2.40"));
             for (String key : routes.keySet()) {
                 List val = routes.get(key);
                 String busName = key;
@@ -116,35 +123,67 @@ public class TrainBusRoutesController implements Initializable {
                 grid.setVgap(12);
                 grid.setAlignment(Pos.CENTER);
                 grid.setPrefSize(700, 700);
+                String time = calculateTime(val);
                 Label label = new Label(busName);
+                Label duration = new Label();
+                duration.setFont(Font.font("Verdana", FontWeight.BOLD,11));
                 if (key.equalsIgnoreCase("Green E")) {
                     label.setTextFill(Color.GREEN);
+                    label.setFont(Font.font("Verdana", FontWeight.BOLD,11));
+                    duration.setText("Total Fare $2.40, Duration: "+ time );
+                    grid.add(duration, 1, 0);
+                    Image img = new Image("file:train-symbol.png");
+                    ImageView view = new ImageView(img);
+                    view.setFitHeight(40);
+                    view.setPreserveRatio(true);
+                    label.setGraphic(view);
                 }
-                if (key.equalsIgnoreCase("Orange Line")) {
+                else if (key.equalsIgnoreCase("Orange Line")) {
                     label.setTextFill(Color.ORANGE);
+                    label.setFont(Font.font("Verdana", FontWeight.BOLD,11));
+                    duration.setText("Total Fare $2.40, Duration: "+ time );
+                    grid.add(duration, 1, 0);
+                    Image img = new Image("file:train-symbol.png");
+                    ImageView view = new ImageView(img);
+                    view.setFitHeight(40);
+                    view.setPreserveRatio(true);
+                    label.setGraphic(view);       
                 }
-                Image img = new Image("file:bus-lane.png");
-                ImageView view = new ImageView(img);
-                view.setFitHeight(40);
-                view.setPreserveRatio(true);
-                label.setGraphic(view);
+                else
+                { label.setFont(Font.font("Verdana", FontWeight.BOLD,11));
+                    duration.setText("Total Fare $1.70, Duration: "+ time );
+                    grid.add(duration, 1, 0);
+                    Image img = new Image("file:bus-lane.png");
+                    ImageView view = new ImageView(img);
+                    view.setFitHeight(40);
+                    view.setPreserveRatio(true);
+                    label.setGraphic(view);
+
+                }
                 grid.add(label, 0, 0);
+//                grid.add(new Text("20 Minutes"),2,0);
+//                grid.add(new Text("20 Minutes"),2,1);
                 Text Origin = new Text(OriginComboBox.getValue().toUpperCase());
                 Origin.setFill(Color.BLUE);
-                Origin.setFont(Font.font("Verdana", 10));
-                grid.add(Origin, 1, 0);
+                Origin.setFont(Font.font("Verdana", 12));
+                Circle circle = new Circle();
+                circle.setRadius(5);
+                circle.setStroke(Color.BLACK);
+                circle.setFill(Color.BLACK);
+                grid.add(Origin, 1, 1);
+                grid.add(circle, 0, 1);
 
                 for (int i = 0; i < val.size(); i++) {
-                    Circle circle = new Circle();
-                    circle.setRadius(5);
-                    circle.setStroke(Color.BLACK);
-                    circle.setFill(Color.BLACK);
-                    grid.add(circle, 0, i + 1);
+                    Circle circle1 = new Circle();
+                    circle1.setRadius(5);
+                    circle1.setStroke(Color.BLACK);
+                    circle1.setFill(Color.BLACK);
+                    grid.add(circle1, 0, i + 2);
                     Text asd = new Text();
                     asd.setText(val.get(i).toString().toUpperCase());
                     asd.setFill(Color.BLUE);
                     asd.setFont(Font.font("Verdana", 10));
-                    grid.add(asd, 1, i + 1);
+                    grid.add(asd, 1, i + 2);
                     route = route + "-> " + val.get(i).toString().toUpperCase();
                 }
                 VBox vbox1 = new VBox();
@@ -179,6 +218,13 @@ public class TrainBusRoutesController implements Initializable {
 
         	}
         }
+    }
+    private String calculateTime(List list)
+    {
+    	int size = list.size();
+    	int time = 4*size;
+    	String timeinmins = String.valueOf(time)+ " minutes";
+    	return timeinmins;
     }
 
 }
