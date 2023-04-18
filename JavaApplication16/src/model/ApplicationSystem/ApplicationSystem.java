@@ -55,7 +55,11 @@ public class ApplicationSystem {
     private RideAgenDirectory rideAgentDirectory;
     private CommuteDirectory commuteDirectory;
     private Graph graph;
-    private ObservableList<Announcement> announcementslist;
+    public Graph getGraph() {
+		return graph;
+	}
+
+	private ObservableList<Announcement> announcementslist;
 
     public static ApplicationSystem getInstance() {
         if (appSystem == null) {
@@ -78,6 +82,7 @@ public class ApplicationSystem {
         this.commuteDirectory = new CommuteDirectory();
         userLoggedIn = false;
         this.graph = new Graph();
+        initalizeGraph();
         this.announcementslist = FXCollections.observableArrayList();
         
         populateAnnouncement();

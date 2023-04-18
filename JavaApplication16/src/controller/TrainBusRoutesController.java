@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -49,6 +50,7 @@ import javafx.stage.Stage;
 import model.ApplicationSystem.ApplicationSystem;
 import model.Commute.Ride;
 import model.Routes.Graph;
+import model.Routes.Stop;
 
 public class TrainBusRoutesController implements Initializable {
     @FXML
@@ -68,7 +70,7 @@ public class TrainBusRoutesController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         this.app = ApplicationSystem.getInstance();
-        graph = this.app.initalizeGraph();
+        graph = this.app.getGraph();
         Set<String> keySet = graph.getStoplookup().keySet();
         List<String> arr = new ArrayList<>(keySet);
         arr.replaceAll(String::toUpperCase);
@@ -94,7 +96,11 @@ public class TrainBusRoutesController implements Initializable {
             a.setAlertType(AlertType.WARNING);
             a.setContentText("Origin and Destination cannot be same");
             a.show();
-        } else {
+        } else 
+        {
+        	LinkedHashMap<String, Stop>stoplookup = graph.getStoplookup();
+        	if(stoplookup.get(Destination.toLowerCase()).isActive() && stoplookup.get(origin.toLowerCase()).isActive())
+        	{
             HashMap<String, List<String>> routes = graph.search(OriginComboBox.getValue().toLowerCase(), DestinationComboBox.getValue().toLowerCase());
             HBox hbox = new HBox();
             pane.getChildren().clear();
@@ -153,8 +159,25 @@ public class TrainBusRoutesController implements Initializable {
                 VBox.getVgrow(hbox);
                 hbox.setLayoutY(20);
             }
+            
             pane.getChildren().add(hbox);
+        	}
+        	else
+        	{
+        		if(!stoplookup.get(Destination.toLowerCase()).isActive())
+        		{
+                a.setAlertType(AlertType.INFORMATION);
+                a.setContentText("Destination Station is closed");
+                a.show();
+        		}
+        		else
+        		{
+        			  a.setAlertType(AlertType.INFORMATION);
+                      a.setContentText("Origin Station is closed");
+                      a.show();
+        		}
 
+        	}
         }
     }
 
