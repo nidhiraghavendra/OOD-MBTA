@@ -56,12 +56,8 @@ public class AnnouncementController implements Initializable {
 		 app = ApplicationSystem.getInstance();
 		 Title.setCellValueFactory(new PropertyValueFactory<Announcement, String>("title"));
 		 Description.setCellValueFactory(new PropertyValueFactory<Announcement, String>("description"));
-		System.out.println(app.getAnnouncementslist().size());
-		 announcementtable.setItems(app.getAnnouncementslist());
-         
-        
-
-		 
+		 descriptiontextarea.setStyle("-fx-text-inner-color: #BA55D3;");
+		 announcementtable.setItems(app.getAnnouncementslist()); 
 	    }
 	    @FXML
 	    private void submitBtnClicked(ActionEvent event) throws IOException

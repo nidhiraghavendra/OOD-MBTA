@@ -13,7 +13,7 @@ public class CustomerRole extends Role {
 
     @Override
     public String getRoleFXMLURL() {
-       return "";
+       return "./view/MainFXML.fxml";
     }
 
     @Override
