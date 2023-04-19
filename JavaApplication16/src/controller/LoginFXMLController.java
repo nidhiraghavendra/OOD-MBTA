@@ -75,14 +75,14 @@ public class LoginFXMLController implements Initializable {
     @FXML
     private Button buttonSignUp;
 
-    public void setModel(ApplicationSystem model) {
-        this.app = model;
-    }
+//    public void setModel(ApplicationSystem model) {
+//        this.app = model;
+//    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        this.app = ApplicationSystem.getInstance();
     }
 
     @FXML
@@ -90,7 +90,7 @@ public class LoginFXMLController implements Initializable {
         System.out.print(" CAME HERE ");
         root = FXMLLoader.load(getClass().getClassLoader().getResource("./view/MainFXML.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 1000);
+        Scene scene = new Scene(root, 2500, 2500);
         stage.setScene(scene);
         stage.show();
     }
@@ -168,9 +168,10 @@ public class LoginFXMLController implements Initializable {
 
             root = FXMLLoader.load(getClass().getClassLoader().getResource("./view/MainFXML.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
-            Scene scene = new Scene(root, 1000, 1000);
-            stage.setScene(scene);
+            Scene scene = new Scene(root,1000,1000);
             stage.setMaximized(true);
+            stage.setScene(scene);
+           
             stage.show();
         } else {
             displayAlert("Invalid credentials!");

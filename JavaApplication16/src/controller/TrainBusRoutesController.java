@@ -161,8 +161,6 @@ public class TrainBusRoutesController implements Initializable {
 
                 }
                 grid.add(label, 0, 0);
-//                grid.add(new Text("20 Minutes"),2,0);
-//                grid.add(new Text("20 Minutes"),2,1);
                 Text Origin = new Text(OriginComboBox.getValue().toUpperCase());
                 Origin.setFill(Color.BLUE);
                 Origin.setFont(Font.font("Verdana", 12));

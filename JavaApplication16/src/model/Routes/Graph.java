@@ -141,8 +141,17 @@ public void addStops()
 			busName = v.busName;
 
 			nextStop = v.nextStop;	
-			
+			if(nextStop == null)
+			{break;}
 			passedStations.add(nextStop.name);
+			if((nextStop.name).equalsIgnoreCase(destinationstop.name))
+			{
+		    	List<String> route = new ArrayList();
+		    	route.addAll(passedStations); // Adding passed stations into the route
+		    	routes.putIfAbsent(v.busName, route); // Add the Bus Name and add the route
+		    	passedStations.clear();
+				break;
+			}
 			// While condition to find path from origin stop to destination
 		    while(!(nextStop.name).equalsIgnoreCase(destinationstop.name)||adjVertices.get(middleStop).isEmpty()== false)
 		    {
@@ -176,26 +185,110 @@ public void addStops()
 		    }
 		}
 	}
+		passedStations.clear();
+		for(Combination v : combination) // Try one bus to  check if it goes to the destination
+		{
+			busName = v.busName;
+
+			nextStop = v.prevStop;	
+			if(nextStop == null)
+			{break;}
+			passedStations.add(nextStop.name);
+			if((nextStop.name).equalsIgnoreCase(destinationstop.name))
+			{
+		    	List<String> route = new ArrayList();
+		    	route.addAll(passedStations); // Adding passed stations into the route
+		    	routes.putIfAbsent(v.busName, route); // Add the Bus Name and add the route
+		    	passedStations.clear();
+				break;
+			}
+			// While condition to find path from origin stop to destination
+		    while(!(nextStop.name).equalsIgnoreCase(destinationstop.name)||adjVertices.get(middleStop).isEmpty()== false)
+		    {
+		    	middleStop = getPrevStop(nextStop,busName,i);
+		    if(middleStop!= null)
+		    {
+		    	if(middleStop.isActive)
+		    	{
+		    	passedStations.add(middleStop.name);
+		    		}
+//		    passedStations.add(middleStop.name);
+	    	nextStop = middleStop;
+		    if((nextStop.name).equalsIgnoreCase( destinationstop.name))
+		    { 
+		    	List<String> route = new ArrayList();
+		    	route.addAll(passedStations); // Adding passed stations into the route
+		    	routes.putIfAbsent(v.busName, route); // Add the Bus Name and add the route
+		    	passedStations.clear();
+		    	break;
+		    	
+		    }
+		    if(adjVertices.get(nextStop).isEmpty()== true)
+		    {
+		    	passedStations.clear(); // if the next stop is empty and the destination is not reached then this path is not feasible to reach the destination
+		    	continue;
+		    }
+		}
+		    if(adjVertices.get(middleStop)== null ||adjVertices.get(middleStop).isEmpty()== true)
+		    {
+		    break;	 // break if the end of the stop is reached or not 
+		    }
+		}
+	}
 		return routes; // return all the routes to reach destination 
 	}
-	private Stop getStop(Stop stop, String busName,int flag) // Move the pointer to next stop
-	{
-		List<Combination> combination = adjVertices.get(stop);
-		Stop nextStop = null;
+	private Stop getStop(Stop stop, String busName, int flag) {
+	    if (stop == null) {
+	        return null; // Base case: stop is null, return null
+	    }
 
-			for(Combination v : combination)
-			{
-				if(v.busName == busName)
-				{
-					nextStop = v.nextStop; // where the next pointer should be
-					break;
-				}
-				
-			}
-		
-		return nextStop;
+	    List<Combination> combination = adjVertices.get(stop);
+	    Stop nextStop = null;
+
+	    for (Combination v : combination) {
+	        if (v.busName.equals(busName)) {
+	            nextStop = v.nextStop; // Found the next stop, update nextStop
+	            break;
+	        }
+	    }
+
+	    if (nextStop == null) {
+	        return null; // Base case: nextStop is null, return null
+	    }
+
+	    if (flag == 1) {
+	        return getStop(nextStop, busName, flag); // Recursively call getStop with nextStop as the new input
+	    } else {
+	        return nextStop; // Return nextStop without further recursion
+	    }
 	}
-	public HashMap<String,String> getStationInfo(Stop getstop)
+	private Stop getPrevStop(Stop stop, String busName, int flag) {
+	    if (stop == null) {
+	        return null; // Base case: stop is null, return null
+	    }
+
+	    List<Combination> combination = adjVertices.get(stop);
+	    Stop nextStop = null;
+
+	    for (Combination v : combination) {
+	        if (v.busName.equals(busName)) {
+	            nextStop = v.prevStop; // Found the next stop, update nextStop
+	            break;
+	        }
+	    }
+
+	    if (nextStop == null) {
+	        return null; // Base case: nextStop is null, return null
+	    }
+
+	    if (flag == 1) {
+	        return getPrevStop(nextStop, busName, flag); // Recursively call getStop with nextStop as the new input
+	    } else {
+	        return nextStop; // Return nextStop without further recursion
+	    }
+	}
+
+	public HashMap<String,String> getStationInfo(Stop getstop) // Returns Info about a single station
 	{
 		HashMap<String, String> map = new HashMap<>();
 		adjVertices.get(getstop);

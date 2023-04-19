@@ -119,7 +119,7 @@ public class MainFXMLController implements Initializable {
     @FXML
     private Button rideBtn;
     @FXML
-    private Button charlie;
+    private Button charlieButton;
     @FXML
     private Button announcebtn;
     @FXML
@@ -153,12 +153,13 @@ public class MainFXMLController implements Initializable {
                 borderpane.getRight().setVisible(false);
                 announcebtn.setVisible(true);
                 Stationsbtn.setVisible(true);
-
+                charlieButton.setVisible(false);
             } else {
                 userBtn.setVisible(false);
                 profileBtn.setVisible(true);
                 announcebtn.setVisible(false);
-                
+                Stationsbtn.setVisible(false);
+                charlieButton.setVisible(true);
                 // SHOW QR CODE
                 displayCard(useraccount);
                 borderpane.getRight().setVisible(true);
@@ -173,7 +174,7 @@ public class MainFXMLController implements Initializable {
             logoutBtn.setVisible(false);
             userBtn.setVisible(false);
             Stationsbtn.setVisible(false);
-            borderpane.getRight().setStyle("-fx-background-color: #ffff;");
+//            borderpane.getRight().setStyle("-fx-background-color: #ffff;");
             borderpane.getRight().setVisible(false);
             ListView<String> list = new ListView<>();
             list.setItems(getArrayList());
@@ -196,14 +197,19 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private void GoToLoginAccount(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("./resources/LoginFXML.fxml"));
-        root = loader.load();
-        ((LoginFXMLController) loader.getController()).setModel(this.app);
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 1000);
-        stage.setMaximized(true);
-        stage.setScene(scene);
-        stage.show();
+//        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("./resources/LoginFXML.fxml"));
+//        root = loader.load();
+////        ((LoginFXMLController) loader.getController()).setModel(this.app);
+//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root, 2500, 2500);
+//        stage.setMaximized(true);
+//        stage.setScene(scene);
+//        stage.show();
+        Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./resources/LoginFXML.fxml"));
+        borderpane.setCenter(loadPane);
+        borderpane.getRight().setVisible(false);
+        
+        
     }
 
     @FXML
@@ -214,7 +220,7 @@ public class MainFXMLController implements Initializable {
         root = loader.load();
         //((MainFXMLController)loader.getController()).setModel(this.app);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 1000);
+        Scene scene = new Scene(root, 2500, 2500);
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
@@ -239,13 +245,25 @@ public class MainFXMLController implements Initializable {
     @FXML
     private void rideButtonClicked(ActionEvent event) throws IOException {
         Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/RideFXML.fxml"));
+        BackgroundImage bi = new BackgroundImage(new Image	("ridesimage.png", 2000, 2000, true, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT); 
+        loadPane.setBackground(new Background(bi));
+
         borderpane.setCenter(loadPane);
+        
     }
 
     @FXML
     private void charlieButtonClicked(ActionEvent event) throws IOException {
         Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./view/CharliePassFXML.fxml"));
         borderpane.setCenter(loadPane);
+        BackgroundImage bi = new BackgroundImage(new Image	("cardimage.png", 2000, 2000, true, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT); 
+        loadPane.setBackground(new Background(bi));
+//        borderpane.setBackground(new Background(bi));
+
     }
 
     private void displayCard(UserAccount useraccount) {
@@ -375,8 +393,13 @@ public class MainFXMLController implements Initializable {
         TextInputDialog td = new TextInputDialog("enter any text");
         td.setX(100);
         td.setHeaderText("Enter the announcement");
+        
         Pane loadPane = FXMLLoader.load(getClass().getClassLoader().getResource("./resources/Announcements.fxml"));
         borderpane.setCenter(loadPane);
+        BackgroundImage bi = new BackgroundImage(new Image	("train-announcement.jpg", 2000, 2000, true, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT); 
+        borderpane.setBackground(new Background(bi));
     }
     @FXML
     private void Stationsbtnclicked(ActionEvent event) throws IOException

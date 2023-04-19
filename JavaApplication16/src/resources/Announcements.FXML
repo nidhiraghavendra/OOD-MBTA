@@ -18,13 +18,13 @@
           <TableColumn fx:id="Description" prefWidth="506.0" text="Description" />
         </columns>
       </TableView>
-      <Text layoutX="167.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements View" wrappingWidth="222.33673095703125">
+      <Text layoutX="162.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ANNOUNCEMENTS VIEW" wrappingWidth="298.0">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="24.0" />
          </font></Text>
       <Button fx:id="DeleteBtn" layoutX="300.0" layoutY="267.0" mnemonicParsing="false" onAction="#DeleteBtnClicked" text="Delete" />
       <Button fx:id="viewButton" layoutX="216.0" layoutY="267.0" mnemonicParsing="false" onAction="#viewButtonClicked" text="View" />
-      <TextArea fx:id="descriptiontextarea" layoutX="12.0" layoutY="463.0" prefHeight="210.0" prefWidth="416.0" />
+      <TextArea fx:id="descriptiontextarea" layoutX="12.0" layoutY="463.0" prefHeight="210.0" prefWidth="416.0" style="-fx-background-color: #7585a1;" />
       <TextField fx:id="titletext" layoutX="12.0" layoutY="380.0" prefHeight="47.0" prefWidth="256.0" />
       <Label layoutX="12.0" layoutY="347.0" prefHeight="17.0" prefWidth="50.0" text="Title">
          <font>

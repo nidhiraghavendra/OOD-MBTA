@@ -225,5 +225,11 @@ public class ApplicationSystem {
     public void populateAnnouncement() {
         Announcement a = new Announcement("Welcome to MBTA portal", "MBTA Pass Programs deliver flexibility and convenience for institutions and large groups using the T. MBTA Pass Programs can help seasoned commuters and students alike access the transit system with ease");
         this.addAnnouncement(a);
+        Announcement b = new Announcement("FAQS", "How do I check the balance on my CharlieTicket or CharlieCard? \n  Login into the app to check the balance on your Charlie Card.");
+        this.addAnnouncement(b);
+        Announcement c = new Announcement("FAQS", "Are there peak-hour fares on the MBTA? \n  No. All fares are the same no matter what time of day or day of the week you ride.");
+        this.addAnnouncement(c);
+        Announcement d = new Announcement("FAQS","Can I pay for more than 1 person using the same CharlieCard or CharlieTicket? \n Yes, if you use stored value (pay as you go) on a CharlieCard. You can pay for up to 4 one-way fares at once using a single CharlieCard at the same station. You can also store 1 pass of any type on the same card.");
+    this.addAnnouncement(d);
     }
 }
