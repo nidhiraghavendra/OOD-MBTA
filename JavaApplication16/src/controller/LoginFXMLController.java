@@ -165,8 +165,8 @@ public class LoginFXMLController implements Initializable {
             UserAccount user = app.getUserdirectory().findUser(fieldUsername.getText(), fieldPassword.getText());
             app.setUserLoggedIn(true);
             app.setLoggedInUserAccount(user);
-
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("./view/MainFXML.fxml"));
+            
+            root = FXMLLoader.load(getClass().getClassLoader().getResource(user.getRole().getRoleFXMLURL()));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();;
             Scene scene = new Scene(root,1000,1000);
             stage.setMaximized(true);
